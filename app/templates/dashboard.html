@@ -1,0 +1,45 @@
+{% extends "basic_layout.html" %} {% block body %}
+
+<div class="profile">
+    <h2>Greetings, {{ current_user.name }}</h2>
+    <a class="logout" href="{{ url_for('logout') }}">
+        <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMnB0IiB2aWV3Qm94PSIwIDAgNTExIDUxMiIgd2lkdGg9IjUxMnB0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0zNjEuNSAzOTJ2NDBjMCA0NC4xMTMyODEtMzUuODg2NzE5IDgwLTgwIDgwaC0yMDFjLTQ0LjExMzI4MSAwLTgwLTM1Ljg4NjcxOS04MC04MHYtMzUyYzAtNDQuMTEzMjgxIDM1Ljg4NjcxOS04MCA4MC04MGgyMDFjNDQuMTEzMjgxIDAgODAgMzUuODg2NzE5IDgwIDgwdjQwYzAgMTEuMDQ2ODc1LTguOTUzMTI1IDIwLTIwIDIwcy0yMC04Ljk1MzEyNS0yMC0yMHYtNDBjMC0yMi4wNTQ2ODgtMTcuOTQ1MzEyLTQwLTQwLTQwaC0yMDFjLTIyLjA1NDY4OCAwLTQwIDE3Ljk0NTMxMi00MCA0MHYzNTJjMCAyMi4wNTQ2ODggMTcuOTQ1MzEyIDQwIDQwIDQwaDIwMWMyMi4wNTQ2ODggMCA0MC0xNy45NDUzMTIgNDAtNDB2LTQwYzAtMTEuMDQ2ODc1IDguOTUzMTI1LTIwIDIwLTIwczIwIDguOTUzMTI1IDIwIDIwem0xMzYuMzU1NDY5LTE3MC4zNTU0NjktNDQuNzg1MTU3LTQ0Ljc4NTE1NmMtNy44MTI1LTcuODEyNS0yMC40NzY1NjItNy44MTI1LTI4LjI4NTE1NiAwLTcuODEyNSA3LjgwODU5NC03LjgxMjUgMjAuNDcyNjU2IDAgMjguMjgxMjVsMzEuODU1NDY5IDMxLjg1OTM3NWgtMjQwLjE0MDYyNWMtMTEuMDQ2ODc1IDAtMjAgOC45NTMxMjUtMjAgMjBzOC45NTMxMjUgMjAgMjAgMjBoMjQwLjE0MDYyNWwtMzEuODU1NDY5IDMxLjg1OTM3NWMtNy44MTI1IDcuODA4NTk0LTcuODEyNSAyMC40NzI2NTYgMCAyOC4yODEyNSAzLjkwNjI1IDMuOTA2MjUgOS4wMjM0MzggNS44NTkzNzUgMTQuMTQwNjI1IDUuODU5Mzc1IDUuMTIxMDk0IDAgMTAuMjM4MjgxLTEuOTUzMTI1IDE0LjE0NDUzMS01Ljg1OTM3NWw0NC43ODUxNTctNDQuNzg1MTU2YzE5LjQ5NjA5My0xOS40OTYwOTQgMTkuNDk2MDkzLTUxLjIxNDg0NCAwLTcwLjcxMDkzOHptMCAwIi8+PC9zdmc+"
+        />
+    </a>
+    <h3>{{ current_user.email }}</h3>
+</div>
+
+<div class="container">
+    <h2>Recently changed</h2>
+    <div class="listing">
+        <h3 class="center-text">Nothing to display</h3>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Top favorites</h2>
+    <div class="listing">
+        <h3 class="center-text">Nothing to display</h3>
+    </div>
+</div>
+
+<div class="container">
+    <div class="search">
+        <h2>Search</h2>
+        <div class="listing">
+            <h3 class="center-text">Nothing to display</h3>
+        </div>
+    </div>
+</div>
+<!--{% for d in data %}
+    <a href="{{ d[0] }}">
+        <div>
+            <img src="{{ d[5] }}">
+            <h2>{{ d[1] }}</h2>
+            <h2>{{ d[2] }}</h2>
+            <h2>{{ d[3] }}</h2>
+        </div>
+    </a> {% endfor %}
+-->
+
+{% endblock %}
