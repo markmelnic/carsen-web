@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 * {
     box-sizing: border-box;
 }
@@ -55,9 +54,9 @@ a {
 button,
 input.submit_button {
     border-radius: 20px;
-    border: 1px solid #FAC345;
-    background-color: #FAC345;
-    color: #FFFFFF;
+    border: 1px solid #279AF1;
+    background-color: #279AF1;
+    color: #F7F7FF;
     font-size: 12px;
     font-weight: bold;
     padding: 12px 45px;
@@ -79,11 +78,11 @@ input.submit_button:focus {
 button,
 input.submit_button.ghost {
     background-color: transparent;
-    border-color: #FFFFFF;
+    border-color: #F7F7FF;
 }
 
 form {
-    background-color: #FFFFFF;
+    background-color: #F7F7FF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,13 +171,13 @@ input {
 }
 
 .overlay {
-    background: #FFB180;
-    background: -webkit-linear-gradient(to right, #FAC345, #FFB180);
-    background: linear-gradient(to right, #FAC345, #FFB180);
+    background: #c49991;
+    background: -webkit-linear-gradient(to right, #279AF1, #c49991);
+    background: linear-gradient(to right, #279AF1, #c49991);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
-    color: #FFFFFF;
+    color: #F7F7FF;
     position: relative;
     left: -100%;
     height: 100%;

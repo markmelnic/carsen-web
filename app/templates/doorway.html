@@ -1,77 +1,56 @@
-<!DOCTYPE html>
-<html>
+{% extends "basic_layout.html" %} {% block body %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='doorway.css') }}">
-
-    <!-- Title -->
-    {% if title %}
-    <title>Carsen - {{ title }}</title>
-    {% else %}
-    <title>Carsen</title>
-    {% endif %}
-</head>
-
-<body>
-    <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form method="POST" action="{{ url_for('register') }}">
-                {{ register_form.hidden_tag() }}
-                <h1>Create Account</h1>
-                <!-- User name -->
-                {{ register_form.name(placeholder="Name") }}
-                <!-- User email -->
-                {{ register_form.email(placeholder="Email") }}
-                <!-- User password-->
-                {{ register_form.password(placeholder="Password") }}
-                <!-- Password confirmation -->
-                {{ register_form.password_confirm(placeholder="Confirm Password") }}
-                <!-- Submit button -->
-                {{ register_form.submit(class="submit_button") }}
-                <!-- Handle register form errors-->
-                {% if register_form.errors %}
-                <div>
-                    {% for error in register_form.errors %}
-                    <span>{{ error }}</span> {% endfor %}
-                </div>
-                {% endif %}
-            </form>
-        </div>
-        <div class="form-container sign-in-container">
-            <form method="POST" action="{{ url_for('login') }}">
-                {{ login_form.hidden_tag() }}
-                <h1>Log in</h1>
-                <!-- User email -->
-                {{ login_form.email(placeholder="Email") }}
-                <!-- User password-->
-                {{ login_form.password(placeholder="Password") }}
-                <!-- Submit button -->
-                {{ login_form.submit(class="submit_button") }}
-                <a href="">Forgot your password?</a>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Welcome back!</h1>
-                    <p>Sign in and get searching</p>
-                    <button class="ghost" id="signIn">Sign In</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Hey there!</h1>
-                    <p>Are you new here? Go ahead and create an account to start using our platform</p>
-                    <button class="ghost" id="signUp">Sign Up</button>
-                </div>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form method="POST" action="{{ url_for('register') }}">
+            {{ register_form.hidden_tag() }}
+            <h1>Create Account</h1>
+            <!-- User name -->
+            {{ register_form.name(placeholder="Name") }}
+            <!-- User email -->
+            {{ register_form.email(placeholder="Email") }}
+            <!-- User password-->
+            {{ register_form.password(placeholder="Password") }}
+            <!-- Password confirmation -->
+            {{ register_form.password_confirm(placeholder="Confirm Password") }}
+            <!-- Submit button -->
+            {{ register_form.submit(class="submit_button") }}
+            <!-- Handle register form errors-->
+            {% if register_form.errors %}
+            <div>
+                {% for error in register_form.errors %}
+                <span>{{ error }}</span> {% endfor %}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form method="POST" action="{{ url_for('login') }}">
+            {{ login_form.hidden_tag() }}
+            <h1>Log in</h1>
+            <!-- User email -->
+            {{ login_form.email(placeholder="Email") }}
+            <!-- User password-->
+            {{ login_form.password(placeholder="Password") }}
+            <!-- Submit button -->
+            {{ login_form.submit(class="submit_button") }}
+            <a href="">Forgot your password?</a>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome back!</h1>
+                <p>Sign in and get searching</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hey there!</h1>
+                <p>Are you new here? Go ahead and create an account to start using our platform</p>
+                <button class="ghost" id="signUp">Sign Up</button>
             </div>
         </div>
     </div>
-</body>
+</div>
 
-<script type="text/javascript" src="{{ url_for('static', filename='doorway.js') }}"></script>
-
-</html>
+{% endblock %}
