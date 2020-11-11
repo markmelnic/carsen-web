@@ -14,11 +14,11 @@ def home():
 @app.route("/doorway")
 def doorway():
     if current_user.is_authenticated:
-        return redirect(url_for("search"))
+        return redirect(url_for("Dashboard"))
     login_form = LoginForm()
     register_form = RegisterForm()
     return render_template(
-        "doorway.html", register_form=register_form, login_form=login_form
+        "doorway.html", page="enter", title="Enter", register_form=register_form, login_form=login_form
     )
 
 
@@ -31,7 +31,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, login_form.password.data):
             login_user(user)
             next_page = request.args.get("next")
-            return redirect(next_page) if next_page else redirect(url_for("search"))
+            return redirect(next_page) if next_page else redirect(url_for("Dashboard"))
     return redirect(url_for("doorway"))
 
 
@@ -44,7 +44,9 @@ def register():
         user = User(name=register_form.name.data, email=register_form.email.data, password=hashed_pass)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for("search"))
+        login_user(user)
+        next_page = request.args.get("next")
+        return redirect(next_page) if next_page else redirect(url_for("Dashboard"))
     else:
         return redirect(url_for("doorway"))
 
@@ -53,7 +55,8 @@ def logout():
     logout_user()
     return redirect(url_for("home"))
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route("/dashboard", methods=["GET", "POST"])
 @login_required
-def search():
-    return render_template("search.html")
+def Dashboard():
+    title = "Dashboard - " + str(current_user.name)
+    return render_template("dashboard.html", page="dash", title=title)
