@@ -1,7 +1,9 @@
+from mobile_de.scraper import next_page
 from flask import request, render_template, url_for, redirect
-from app import app
+from app import app, db, bcrypt
 from app.forms import LoginForm, RegisterForm
 from app.models import User
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 @app.route("/")
@@ -11,6 +13,8 @@ def home():
 
 @app.route("/doorway")
 def doorway():
+    if current_user.is_authenticated:
+        return redirect(url_for("search"))
     login_form = LoginForm()
     register_form = RegisterForm()
     return render_template(
@@ -23,10 +27,12 @@ def login():
     login_form = LoginForm()
     register_form = RegisterForm()
     if login_form.validate_on_submit():
-        return redirect(url_for("search"))
-    else:
-        return redirect(url_for("doorway"))
-    # return render_template("doorway.html", register_form=register_form, login_form=login_form)
+        user = User.query.filter_by(email=login_form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, login_form.password.data):
+            login_user(user)
+            next_page = request.args.get("next")
+            return redirect(next_page) if next_page else redirect(url_for("search"))
+    return redirect(url_for("doorway"))
 
 
 @app.route("/register", methods=["POST"])
@@ -34,18 +40,20 @@ def register():
     login_form = LoginForm()
     register_form = RegisterForm()
     if register_form.validate_on_submit():
+        hashed_pass = bcrypt.generate_password_hash(login_form.password.data).decode("utf-8")
+        user = User(name=register_form.name.data, email=register_form.email.data, password=hashed_pass)
+        db.session.add(user)
+        db.session.commit()
         return redirect(url_for("search"))
     else:
         return redirect(url_for("doorway"))
-    # return render_template("doorway.html", register_form=register_form, login_form=login_form)
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
 
 @app.route("/search", methods=["GET", "POST"])
+@login_required
 def search():
-    search_parameters = []
-    search_parameters.append(request.form["car_make"])
-    search_parameters.append(request.form["car_model"])
-    for i in range(6):
-        search_parameters.append("")
-    data = surface_search(search_parameters)
-    return render_template("search.html", data=data)
+    return render_template("search.html")
