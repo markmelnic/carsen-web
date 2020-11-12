@@ -6,12 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel='icon' href="{{ url_for( 'static', filename='images/favicon.ico' ) }}">
+
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <!-- Page specific stylesheets -->
     {% if page == "enter" %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='doorway.css') }}"> {% elif page == "dash" %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard.css') }}"> {% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='doorway.css' ) }}"> {% elif page == "dash" %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='dashboard.css' ) }}"> {% endif %}
 
     <!-- Title -->
     {% if title %}
@@ -26,7 +28,10 @@
 </body>
 
 <!-- Load scripts -->
-{% if title == "Enter" %}
-<script type="text/javascript" src="{{ url_for('static', filename='doorway.js') }}"></script> {% endif %}
+{% if page == "enter" %}
+<script type="text/javascript" src="{{ url_for( 'static', filename='doorway.js' ) }}"></script> {% elif page == "dash" %}
+
+<script type="text/javascript"></script>
+{% endif %}
 
 </html>

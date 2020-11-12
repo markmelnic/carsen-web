@@ -26,9 +26,44 @@
 <div class="container">
     <div class="search">
         <h2>Search</h2>
-        <div class="listing">
-            <h3 class="center-text">Nothing to display</h3>
+        <div class="parameters">
+            <form id="search_form" method="POST" action="{{ url_for('search') }}">
+                <!-- sign up form -->
+                {{ search_form.hidden_tag() }}
+                <!-- car manufacturer -->
+                {{ search_form.manufacturer(placeholder="Manufacturer") }}
+                <!-- car model -->
+                {{ search_form.model(placeholder="Model") }}
+                <!-- price -->
+                <h3>Price</h3>
+                <div class="liniar">
+                    {{ search_form.price_from(placeholder="from") }} {{ search_form.price_to(placeholder="to") }}</div>
+                <!-- reg -->
+                <h3>First registration</h3>
+                <div class="liniar">
+                    {{ search_form.reg_from(placeholder="from") }} {{ search_form.reg_to(placeholder="to") }}</div>
+                <!-- mileage -->
+                <h3>Mileage</h3>
+                <div class="liniar">
+                    {{ search_form.mileage_from(placeholder="from") }} {{ search_form.mileage_to(placeholder="to") }}</div>
+                <!-- Submit button -->
+                <br> {{ search_form.submit(class="submit_button") }}
+            </form>
         </div>
+        <div class="results" id="results">
+            {% for result in results %}
+            <a href="{{ result[0] }}">
+                <div class="listing">
+                    <img src="{{ result[5] }}">
+                    <h3 class="center-text">{{ result[1] }}</h3>
+                    <h3 class="center-text">{{ result[2] }}</h3>
+                    <h3 class="center-text">{{ result[3] }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+
+        </div>
+
     </div>
 </div>
 <!--{% for d in data %}
