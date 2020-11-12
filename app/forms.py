@@ -26,6 +26,7 @@ class RegisterForm(FlaskForm):
         if user_email:
             raise ValidationError("Email already in use, please choose another")
 
+
 class SearchForm(FlaskForm):
     manufacturer = StringField("Manufacturer", validators=[DataRequired()])
     model = StringField("Model", validators=[DataRequired()])
