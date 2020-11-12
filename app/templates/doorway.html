@@ -3,6 +3,16 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form method="POST" action="{{ url_for('register') }}">
+            <!-- display errors if any -->
+            {% with messages = get_flashed_messages(category_filter=["register_error"]) %} {% if messages %}
+            <ul class="error">
+                {% for message in messages %}
+                <li>{{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+            <!-- sign up form -->
             {{ register_form.hidden_tag() }}
             <h1>Create Account</h1>
             <!-- User name -->
@@ -15,17 +25,20 @@
             {{ register_form.password_confirm(placeholder="Confirm Password") }}
             <!-- Submit button -->
             {{ register_form.submit(class="submit_button") }}
-            <!-- Handle register form errors-->
-            {% if register_form.errors %}
-            <div>
-                {% for error in register_form.errors %}
-                <span>{{ error }}</span> {% endfor %}
-            </div>
-            {% endif %}
         </form>
     </div>
     <div class="form-container sign-in-container">
         <form method="POST" action="{{ url_for('login') }}">
+            <!-- display errors if any -->
+            {% with messages = get_flashed_messages(category_filter=["login_error"]) %} {% if messages %}
+            <ul class="error">
+                {% for message in messages %}
+                <li>{{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+            <!-- sign up form -->
             {{ login_form.hidden_tag() }}
             <h1>Log in</h1>
             <!-- User email -->
