@@ -3,6 +3,7 @@ html {
     overflow: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow-y: scroll;
 }
 
 html::-webkit-scrollbar {
@@ -43,6 +44,7 @@ h3 {
     padding: 1em;
     background-color: #f25f5c;
     border-radius: 100%;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .logout:hover {
@@ -71,13 +73,68 @@ h3 {
     display: flex;
     margin: 1em;
     min-height: 5em;
-    background-color: #eae8e8;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: .5em;
 }
 
 .center-text {
     display: block;
-    padding-left: 5em;
     margin-top: auto;
     margin-bottom: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.search {
+    display: inline-block;
+}
+
+.search .parameters {
+    padding: 1em;
+    margin-right: 1em;
+    float: left;
+    width: 15em;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+input {
+    padding: .2em;
+    border: none;
+    border-bottom: .1em solid #333;
+    background-color: #F7F7FF;
+    width: fit-content;
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+.parameters h3 {
+    padding: 0%;
+    margin: 0%;
+}
+
+.parameters .liniar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.liniar input {
+    margin-top: 0%;
+    background-color: #F7F7FF;
+    width: 50%;
+}
+
+.liniar input:first-child {
+    margin-right: .1em;
+    background-color: #F7F7FF;
+    width: 50%;
+}
+
+.liniar input:last-child {
+    margin-left: .1em;
+    background-color: #F7F7FF;
+    width: 50%;
+}
+
+.search .results {
+    width: 100%;
 }
