@@ -53,6 +53,7 @@ a {
 
 button,
 input.submit_button {
+    cursor: pointer;
     border-radius: 20px;
     border: 1px solid #279AF1;
     background-color: #279AF1;
@@ -172,9 +173,9 @@ input {
 }
 
 .overlay {
-    background: #c49991;
-    background: -webkit-linear-gradient(to right, #279AF1, #c49991);
-    background: linear-gradient(to right, #279AF1, #c49991);
+    background: #FAC345;
+    background: -webkit-linear-gradient(to right, #279AF1, #FAC345);
+    background: linear-gradient(to right, #279AF1, #FAC345);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -239,8 +240,11 @@ input {
 }
 
 .form-container.sign-in-container form input.submit_button {
-    background-color: #c49991;
-    border: 1px solid #c49991;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    background-color: #FAC345;
+    border: none;
 }
 
 

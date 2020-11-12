@@ -1,7 +1,7 @@
 {% with messages = get_flashed_messages(category_filter=["no_search_results"]) %} {% if messages %} {% for message in messages %}
 <h3 class="error_box">{{ message }}
 </h3>
-{% endfor %} {% endif %} {% endwith %} {% for result in results %}
+{% endfor %} {% endif %} {% endwith %} {% for result in results|reverse %}
 <div class="listing_container">
     <div class="index_fav">
         <a>
@@ -19,6 +19,7 @@
                     <h3>{{ result[2] }} €</h3>
                     <h3> | {{ result[3] }}</h3>
                     <h3> | {{ result[4] }} km</h3>
+                    <h3> | {{'%0.2f'| format(result[6]|float)}} *</h3>
                 </div>
             </div>
         </div>

@@ -49,8 +49,8 @@ button {
 }
 
 button:hover {
-    color: #eae8e8;
-    background-color: #c49991;
+    color: #131112;
+    background-color: #FAC345;
     transition: all 0.3s ease-in-out;
 }
 
@@ -93,8 +93,12 @@ button#another_search {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
-a#logout {
+#logout {
     background-color: #f25f5c;
+}
+
+#logout:hover {
+    background-color: #60656f;
 }
 
 .profile_buttons a:last-child {
@@ -102,7 +106,7 @@ a#logout {
 }
 
 .profile_buttons a:hover {
-    background-color: #c49991;
+    background-color: #FAC345;
     transition: all 0.3s ease-in-out;
 }
 
@@ -130,17 +134,51 @@ a#logout {
     margin: 1em;
 }
 
+.listing_container:hover {
+    transition: all 0.3s ease-in-out;
+    background-color: #279af1;
+}
+
+.listing_container:hover div a h3 {
+    color: #eae8e8;
+}
+
+.listing_container:hover div a img {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(274deg) brightness(102%) contrast(102%);
+}
+
 .listing_container a {
     width: 100%;
 }
 
 .index_fav {
+    cursor: pointer;
     display: flex;
     position: relative;
     justify-content: center;
     vertical-align: middle;
     margin-right: auto;
     margin-left: auto;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+}
+
+.index_fav:hover {
+    transition: all 0.3s ease-in-out;
+    background-color: #FAC345;
+}
+
+.index_fav a h3 {
+    font-size: x-large;
+    color: #131112;
+}
+
+.index_fav:hover a h3 {
+    color: #131112 !important;
+}
+
+.index_fav:hover a img {
+    filter: none !important;
 }
 
 .index_fav a {
@@ -165,11 +203,13 @@ a#logout {
 }
 
 .listing {
+    background-color: #F7F7FF;
     display: flex;
     flex-direction: row;
     min-height: 5em;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border-radius: .5em;
+    border-top-right-radius: .5em;
+    border-bottom-right-radius: .5em;
 }
 
 .listing h3.listing_title {
