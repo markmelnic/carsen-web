@@ -55,9 +55,14 @@
             <a href="{{ result[0] }}">
                 <div class="listing">
                     <img src="{{ result[5] }}">
-                    <h3 class="center-text">{{ result[1] }}</h3>
-                    <h3 class="center-text">{{ result[2] }}</h3>
-                    <h3 class="center-text">{{ result[3] }}</h3>
+                    <div class="details">
+                        <h3 class="listing_title">{{ result[1] }}</h3>
+                        <div class="prm">
+                            <h3>{{ result[2] }} €</h3>
+                            <h3> | {{ result[3] }}</h3>
+                            <h3> | {{ result[4] }} km</h3>
+                        </div>
+                    </div>
                 </div>
             </a>
             {% endfor %}
@@ -66,15 +71,5 @@
 
     </div>
 </div>
-<!--{% for d in data %}
-    <a href="{{ d[0] }}">
-        <div>
-            <img src="{{ d[5] }}">
-            <h2>{{ d[1] }}</h2>
-            <h2>{{ d[2] }}</h2>
-            <h2>{{ d[3] }}</h2>
-        </div>
-    </a> {% endfor %}
--->
 
 {% endblock %}

@@ -96,6 +96,7 @@ def search():
     results = surface_search(
         [
             search_form.manufacturer.data,
+            search_form.model.data,
             search_form.price_from.data,
             search_form.price_to.data,
             search_form.reg_from.data,

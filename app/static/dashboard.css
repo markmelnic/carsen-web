@@ -77,15 +77,36 @@ h3 {
     border-radius: .5em;
 }
 
+.listing h3.listing_title {
+    width: 90%;
+    float: left;
+    padding-left: .5em;
+}
+
+.listing h3 {
+    margin: 0;
+    float: left;
+    padding-left: .5em;
+}
+
 .listing img {
     display: block;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 1em;
+    margin-left: .5em;
     object-fit: cover;
     width: 4.5em;
     height: 4.5em;
     border-radius: 100%;
+}
+
+.listing .details {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.details .prm {
+    display: inline;
 }
 
 .center-text {
