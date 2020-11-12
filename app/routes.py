@@ -91,25 +91,23 @@ def dashboard():
 @app.route("/search", methods=["POST"])
 @login_required
 def search():
-    title = "Dashboard - " + str(current_user.name)
-    search_form = SearchForm()
-    results = surface_search(
-        [
-            search_form.manufacturer.data,
-            search_form.model.data,
-            search_form.price_from.data,
-            search_form.price_to.data,
-            search_form.reg_from.data,
-            search_form.reg_to.data,
-            search_form.mileage_from.data,
-            search_form.mileage_to.data,
-        ]
-    )
-    # return redirect(url_for("dashboard", results=results))
+    try:
+        results = surface_search(
+            [
+                request.form['manufacturer'],
+                request.form['model'],
+                request.form['price_from'],
+                request.form['price_to'],
+                request.form['reg_from'],
+                request.form['reg_to'],
+                request.form['mileage_from'],
+                request.form['mileage_to'],
+            ]
+        )
+    except AssertionError:
+        results = []
+        flash(u"Your search did not yield any results. Try other search parameters.", "no_search_results")
     return render_template(
-        "dashboard.html",
-        page="dash",
-        title=title,
-        search_form=search_form,
+        "results.html",
         results=results,
     )

@@ -4,6 +4,7 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow-y: scroll;
+    animation: fadein 1s;
 }
 
 html::-webkit-scrollbar {
@@ -13,12 +14,49 @@ html::-webkit-scrollbar {
 body {
     color: #131112;
     background-color: #F7F7FF;
-    max-width: 70%;
+    max-width: 65%;
     margin: 0 auto;
 }
 
 h3 {
     color: #60656f;
+}
+
+input {
+    font-size: large;
+    padding: .2em;
+    border: none;
+    border-bottom: .1em solid #333;
+    background-color: #F7F7FF;
+    width: fit-content;
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+button {
+    cursor: pointer;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 1em;
+    font-size: large;
+    font-weight: bold;
+    color: #eae8e8;
+    background-color: #279af1;
+    height: 2.5em;
+    width: 100%;
+    text-align: center;
+    animation: fadein 1s;
+}
+
+button:hover {
+    color: #eae8e8;
+    background-color: #c49991;
+    transition: all 0.3s ease-in-out;
+}
+
+button#another_search {
+    animation: fadein 1s;
+    display: none;
 }
 
 .profile {
@@ -34,25 +72,41 @@ h3 {
     flex: 0 50%;
 }
 
-.logout {
-    display: inline-block;
-    justify-self: right;
+.profile_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    float: right;
     margin-left: auto;
+    max-height: 1.6em;
+}
+
+.profile_buttons a {
+    display: inline-block;
     margin-right: 1em;
     max-height: 1.6em;
     max-width: 1.6em;
     padding: 1em;
-    background-color: #f25f5c;
+    background-color: #279af1;
+    /*#f25f5c;*/
     border-radius: 100%;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
-.logout:hover {
-    background-color: #eae8e8;
+a#logout {
+    background-color: #f25f5c;
+}
+
+.profile_buttons a:last-child {
+    margin-right: 1em;
+}
+
+.profile_buttons a:hover {
+    background-color: #c49991;
     transition: all 0.3s ease-in-out;
 }
 
-.logout img {
+.profile_buttons a img {
     max-height: inherit;
     max-width: inherit;
     display: block;
@@ -69,16 +123,57 @@ h3 {
     border-left: solid .3em #279af1;
 }
 
+.listing_container {
+    display: flex;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.listing_container a {
+    width: 100%;
+}
+
+.index_fav {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    vertical-align: middle;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.index_fav a {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    vertical-align: middle;
+    flex-wrap: wrap;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.index_fav h3 {
+    margin: 0;
+    padding-bottom: .25em;
+    text-align: center;
+}
+
+.index_fav img {
+    height: 1.6em;
+    width: 1.6em;
+}
+
 .listing {
     display: flex;
-    margin: 1em;
+    flex-direction: row;
     min-height: 5em;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: .5em;
 }
 
 .listing h3.listing_title {
-    width: 90%;
+    width: 100%;
     float: left;
     padding-left: .5em;
 }
@@ -91,6 +186,7 @@ h3 {
 
 .listing img {
     display: block;
+    float: left;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: .5em;
@@ -100,12 +196,15 @@ h3 {
     border-radius: 100%;
 }
 
-.listing .details {
+.listing .listing_details {
+    display: block;
+    float: right;
+    width: 90%;
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.details .prm {
+.listing_details .prm {
     display: inline;
 }
 
@@ -129,17 +228,8 @@ h3 {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
-input {
-    padding: .2em;
-    border: none;
-    border-bottom: .1em solid #333;
-    background-color: #F7F7FF;
-    width: fit-content;
-    width: 100%;
-    margin-bottom: .5em;
-}
-
 .parameters h3 {
+    color: #279af1;
     padding: 0%;
     margin: 0%;
 }
@@ -167,6 +257,40 @@ input {
     width: 50%;
 }
 
-.search .results {
-    width: 100%;
+#search_results {
+    display: none;
+    animation: fadein 1s;
+}
+
+#loading {
+    display: none;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 100%;
+    animation: blinker 1s linear infinite;
+    text-shadow: 0 0 1px white;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+#bottom_spacing {
+    padding-bottom: 10%;
+}
+
+.error_box {
+    color: #131112;
+    display: flex;
+    width: auto;
+    padding: 1em;
+    text-align: center;
+    padding-left: 5em;
+    padding-right: 5em;
+    border: none;
+    background-color: #f25f5c;
+    border-radius: 1em;
 }
