@@ -65,15 +65,14 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $(document).on('click', '.index_rm', function() {
-        var query = $(this).attr("id");
+        var element = $(this).closest('div');
         $.ajax({
             url: '/remove_from_favorites',
             data: { id: $(this).attr("id") },
             type: 'POST',
             success: function(response) {
-                $("#favorites").fadeOut('#favorites', function() {
-                    $('#favorites').html(response);
-                    $("#favorites").fadeIn();
+                $(element).fadeOut("normal", function() {
+                    $(element).remove();
                 });
             },
             error: function(error) {
