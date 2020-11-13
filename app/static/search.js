@@ -30,6 +30,16 @@ $(function() {
     });
 });
 
+$(function() {
+    $('#another_search').click(function() {
+        $("#another_search").fadeOut('#another_search', function() {
+            $("#search_form").trigger("reset");
+            $("#search_submit").fadeIn();
+            $("#search_results").fadeOut();
+        });
+    })
+});
+
 $(document).ready(function() {
     $(document).on('click', '.index_fav', function() {
         var query = $(this).attr("value");
