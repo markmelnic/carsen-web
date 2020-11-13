@@ -1,0 +1,19 @@
+{% if favs is defined %} {% for fav in favs %}
+<a href="{{ fav[0] }} " target="_blank ">
+    <div class="listing">
+        <img src="{{ fav[5] }}">
+        <div class="listing_details">
+            <h3 class="listing_title">{{ fav[1] }}</h3>
+            <div class="prm">
+                <h3>{{ fav[2] }} €</h3>
+                <h3> | {{ fav[3] }}</h3>
+                <h3> | {{ fav[4] }} km</h3>
+            </div>
+        </div>
+    </div>
+</a>
+</div> {% endfor %} {% else %}
+<div class="listing">
+    <h3 class="center-text">Nothing to display</h3>
+</div>
+{% endif %}
