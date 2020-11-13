@@ -25,32 +25,8 @@
 <div class="container">
     <h2>Favorites</h2>
     <div id="favorites">
-        {% if favs is defined %} {% for fav in favs %}
-        <div class="listing_container">
-            <a class="index_rm" type="button">
-                <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjUxMS45OTk5OHB0IiB2aWV3Qm94PSIxIDEgNTExLjk5OTk4IDUxMS45OTk5OCIgd2lkdGg9IjUxMS45OTk5OHB0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0yNTYgMGMtMTQxLjM4NjcxOSAwLTI1NiAxMTQuNjEzMjgxLTI1NiAyNTZzMTE0LjYxMzI4MSAyNTYgMjU2IDI1NiAyNTYtMTE0LjYxMzI4MSAyNTYtMjU2Yy0uMTY3OTY5LTE0MS4zMTY0MDYtMTE0LjY4MzU5NC0yNTUuODMyMDMxLTI1Ni0yNTZ6bTAgNDgwYy0xMjMuNzEwOTM4IDAtMjI0LTEwMC4yODkwNjItMjI0LTIyNHMxMDAuMjg5MDYyLTIyNCAyMjQtMjI0IDIyNCAxMDAuMjg5MDYyIDIyNCAyMjRjLS4xMzI4MTIgMTIzLjY1NjI1LTEwMC4zNDM3NSAyMjMuODY3MTg4LTIyNCAyMjR6bTAgMCIvPjxwYXRoIGQ9Im0zODAuNDQ5MjE5IDEzMS41NTA3ODFjLTYuMjUtNi4yNDYwOTMtMTYuMzc4OTA3LTYuMjQ2MDkzLTIyLjYyNSAwbC0xMDEuODI0MjE5IDEwMS44MjQyMTktMTAxLjgyNDIxOS0xMDEuODI0MjE5Yy02LjE0MDYyNS02LjM1NTQ2OS0xNi4yNjk1MzEtNi41MzEyNS0yMi42MjUtLjM5MDYyNS02LjM1NTQ2OSA2LjEzNjcxOS02LjUzMTI1IDE2LjI2NTYyNS0uMzkwNjI1IDIyLjYyMTA5NC4xMjg5MDYuMTMyODEyLjI1NzgxMy4yNjU2MjUuMzkwNjI1LjM5NDUzMWwxMDEuODI0MjE5IDEwMS44MjQyMTktMTAxLjgyNDIxOSAxMDEuODI0MjE5Yy02LjM1NTQ2OSA2LjEzNjcxOS02LjUzMTI1IDE2LjI2NTYyNS0uMzkwNjI1IDIyLjYyNSA2LjEzNjcxOSA2LjM1NTQ2OSAxNi4yNjU2MjUgNi41MzEyNSAyMi42MjEwOTQuMzkwNjI1LjEzMjgxMi0uMTI4OTA2LjI2NTYyNS0uMjU3ODEzLjM5NDUzMS0uMzkwNjI1bDEwMS44MjQyMTktMTAxLjgyNDIxOSAxMDEuODI0MjE5IDEwMS44MjQyMTljNi4zNTU0NjkgNi4xMzY3MTkgMTYuNDg0Mzc1IDUuOTYwOTM3IDIyLjYyMTA5My0uMzk0NTMxIDUuOTg4MjgyLTYuMTk5MjE5IDUuOTg4MjgyLTE2LjAzMTI1IDAtMjIuMjMwNDY5bC0xMDEuODIwMzEyLTEwMS44MjQyMTkgMTAxLjgyNDIxOS0xMDEuODI0MjE5YzYuMjQ2MDkzLTYuMjQ2MDkzIDYuMjQ2MDkzLTE2LjM3NSAwLTIyLjYyNXptMCAwIi8+PC9zdmc+"
-                />
-            </a>
-            <a href="{{ fav[0] }} " target="_blank ">
-                <div class="listing">
-                    <img src="{{ fav[5] }}">
-                    <div class="listing_details">
-                        <h3 class="listing_title">{{ fav[1] }}</h3>
-                        <div class="prm">
-                            <h3>{{ fav[2] }} €</h3>
-                            <h3> | {{ fav[3] }}</h3>
-                            <h3> | {{ fav[4] }} km</h3>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div> {% endfor %} {% else %}
-        <div class="listing">
-            <h3 class="center-text">Nothing to display</h3>
-        </div>
+        {%include "favorites.html" %}
     </div>
-    {% endif %}
-</div>
 </div>
 
 <div class="container">
