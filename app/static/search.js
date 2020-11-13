@@ -30,12 +30,23 @@ $(function() {
     });
 });
 
-$(function() {
-    $('#another_search').click(function() {
-        $("#another_search").fadeOut('#another_search', function() {
-            $("#search_form").trigger("reset");
-            $("#search_submit").fadeIn();
-            $("#search_results").fadeOut();
+$(document).ready(function() {
+    $(document).on('click', '.index_fav', function() {
+        var query = $(this).attr("value");
+        $.ajax({
+            url: '/add_to_favorites',
+            data: {
+                qSet: query
+            },
+            type: 'POST',
+            success: function(response) {
+                $("#loading").fadeOut('#loading', function() {
+                    $('#favorites').html(response);
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
-    })
+    });
 });
