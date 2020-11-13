@@ -23,9 +23,27 @@
 </div>
 
 <div class="container">
-    <h2>Top favorites</h2>
-    <div class="listing">
-        <h3 class="center-text">Nothing to display</h3>
+    <h2>Favorites</h2>
+    <div id="favorites">
+        {% if favs[0] != '' %} {% for fav in favs %}
+        <a href="{{ fav[0] }} " target="_blank ">
+            <div class="listing">
+                <img src="{{ fav[5] }}">
+                <div class="listing_details">
+                    <h3 class="listing_title">{{ fav[1] }}</h3>
+                    <div class="prm">
+                        <h3>{{ fav[2] }} €</h3>
+                        <h3> | {{ fav[3] }}</h3>
+                        <h3> | {{ fav[4] }} km</h3>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %} {% else %}
+        <div class="listing">
+            <h3 class="center-text">Nothing to display</h3>
+        </div>
+        {% endif %}
     </div>
 </div>
 
@@ -65,4 +83,4 @@
 </div>
 
 <div id="bottom_spacing"></div>
-{% endblock %}
+{% endblock body %}
