@@ -69,9 +69,19 @@ def get_favorites():
                     fav.reg,
                     fav.mileage,
                     fav.image,
+                    fav.id,
                 ])
 
     return favs
+
+def remove_favorite(id):
+    current_favs = current_user.favorites
+
+    favs_split = current_favs.split("|")
+    favs_split.pop(favs_split.index(id))
+
+    current_user.favorites = "|".join(favs_split)
+    db.session.commit()
 
 @app.route("/")
 def home():
@@ -182,5 +192,12 @@ def add_to_favorites():
     fav = loads(request.form.to_dict()["qSet"])
     add_favorites(fav)
 
-    favs = get_favorites()
-    return render_template("favorites.html", favs=favs)
+    return render_template("favorites.html", favs=get_favorites())
+
+@app.route("/remove_from_favorites", methods=["GET", "POST"])
+@login_required
+def remove_from_favorites():
+    id = request.form.to_dict()["id"].split("-")[1]
+    remove_favorite(id)
+
+    return render_template("favorites.html", favs=get_favorites())

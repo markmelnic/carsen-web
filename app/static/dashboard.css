@@ -18,6 +18,10 @@ body {
     margin: 0 auto;
 }
 
+h2 {
+    margin: 0;
+}
+
 h3 {
     color: #60656f;
 }
@@ -128,6 +132,7 @@ button#another_search {
 }
 
 .listing_container {
+    animation: fadein 1s;
     display: flex;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: .5em;
@@ -174,6 +179,7 @@ button#another_search {
 }
 
 .index_fav {
+    animation: fadein 1s;
     padding-left: .3em;
     padding-right: .3em;
     min-height: 5em;
@@ -267,10 +273,10 @@ button#another_search {
 
 .center-text {
     display: block;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: auto;
+    align-self: center;
+    justify-self: center;
     margin-left: auto;
+    margin-right: auto;
 }
 
 .search {
@@ -279,10 +285,15 @@ button#another_search {
 
 .search .parameters {
     padding: 1em;
+    margin-top: 1em;
     margin-right: 1em;
     float: left;
     width: 15em;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.parameters * {
+    font-size: large;
 }
 
 .parameters h3 {

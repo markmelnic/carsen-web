@@ -50,8 +50,30 @@ $(document).ready(function() {
             },
             type: 'POST',
             success: function(response) {
-                $("#loading").fadeOut('#loading', function() {
+                $("#favorites").fadeOut('#favorites', function() {
                     $('#favorites').html(response);
+                    $("#favorites").fadeIn();
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    $(document).on('click', '.index_rm', function() {
+        var query = $(this).attr("id");
+        $.ajax({
+            url: '/remove_from_favorites',
+            data: { id: $(this).attr("id") },
+            type: 'POST',
+            success: function(response) {
+                $("#favorites").fadeOut('#favorites', function() {
+                    $('#favorites').html(response);
+                    $("#favorites").fadeIn();
                 });
             },
             error: function(error) {
