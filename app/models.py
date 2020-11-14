@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
         return f"User('{self.name}', '{self.email}', '{self.profile_picture}')"
 
 
-class Favorite(db.Model):
+class Vehicle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String, nullable=False)
     image = db.Column(db.String, nullable=False)
@@ -35,4 +35,4 @@ class Favorite(db.Model):
     user_added = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Favorite('{self.url}', '{self.title}')"
+        return f"Vehicle('{self.url}', '{self.title}')"

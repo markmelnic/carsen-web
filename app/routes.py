@@ -11,14 +11,14 @@ from flask import (
 )
 from app import app, db, bcrypt
 from app.forms import LoginForm, RegisterForm, SearchForm
-from app.models import User, Favorite
+from app.models import User, Vehicle
 from flask_login import login_user, current_user, logout_user, login_required
 
 db.create_all()
 db.session.commit()
 
 def add_favorites(fav):
-    find_dup = Favorite.query.filter_by(
+    find_dup = Vehicle.query.filter_by(
         image=fav["image"],
         title=fav["title"],
         price=fav["price"],
@@ -36,7 +36,7 @@ def add_favorites(fav):
         else:
             return False
     else:
-        fav_db = Favorite(
+        fav_db = Vehicle(
             url=fav["url"],
             image=fav["image"],
             title=fav["title"],
@@ -65,7 +65,7 @@ def get_favorites(last=False):
         favorites = current_user.favorites.split("|")
         favs = []
         for i in favorites:
-            fav = Favorite.query.get(i)
+            fav = Vehicle.query.get(i)
             favs.append([
                     fav.url,
                     fav.title,
@@ -222,14 +222,12 @@ def check_changes():
 @login_required
 def update_database_changes():
     changed = request.form.to_dict()
-    print(changed)
     for i in range(int(len(changed)/2)):
         item = changed["data[%i][item]"%i]
         value = changed["data[%i][value]"%i]
-        print(item, value)
 
-        old_price = Favorite.query.get(item).price
-        Favorite.query.get(item).price = int(old_price) + int(value)
+        old_price = Vehicle.query.get(item).price
+        Vehicle.query.get(item).price = int(old_price) + int(value)
         db.session.commit()
 
     return render_template("favorites.html", favs=get_favorites())
