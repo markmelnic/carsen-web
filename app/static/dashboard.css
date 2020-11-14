@@ -145,13 +145,15 @@ button#another_search {
 
 .listing_container:hover {
     transition: all 0.3s ease-in-out;
+    animation: fadein 1s;
     background-color: #279af1;
 }
 
-.index_rm {
-    padding-left: .3em;
-    padding-right: .3em;
+.index {
+    padding-left: .6em;
+    padding-right: .6em;
     min-height: 5em;
+    height: 100%;
     cursor: pointer;
     display: flex;
     position: relative;
@@ -164,64 +166,99 @@ button#another_search {
     border-bottom-left-radius: .5em;
 }
 
-.index_rm:hover {
+a.decrease {
+    transition: all 0.3s ease-in-out;
+    background-color: #70c1b3;
+}
+
+h3.decrease {
+    color: #70c1b3;
+}
+
+a.increase {
     transition: all 0.3s ease-in-out;
     background-color: #f25f5c;
 }
 
-.index_rm img {
+h3.increase {
+    color: #f25f5c;
+}
+
+.change h3 {
+    font-size: large;
+    color: #131112;
+}
+
+.change h3 {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.change:hover h3 {
+    color: #131112 !important;
+}
+
+.change img {
+    margin-top: auto;
     vertical-align: middle;
     width: 1.6em;
 }
 
-.index_rm:hover img {
+.change:hover img {
     filter: none !important;
 }
 
-.index_fav {
-    animation: fadein 1s;
-    padding-left: .3em;
-    padding-right: .3em;
-    min-height: 5em;
-    cursor: pointer;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    vertical-align: middle;
-    flex-wrap: wrap;
-    margin-top: auto;
-    margin-bottom: auto;
-    border-top-left-radius: .5em;
-    border-bottom-left-radius: .5em;
+.rm:hover {
+    transition: all 0.3s ease-in-out;
+    background-color: #f25f5c;
 }
 
-.index_fav:hover {
+.rm img {
+    margin-bottom: auto;
+    margin-top: auto;
+    vertical-align: middle;
+    width: 1.6em;
+}
+
+.rm:hover img {
+    filter: none !important;
+}
+
+.fav:hover {
     transition: all 0.3s ease-in-out;
     background-color: #FAC345;
 }
 
-.index_fav h3 {
+.fav h3 {
     font-size: x-large;
     color: #131112;
 }
 
-.index_fav h3 {
-    margin: 0;
-    padding-bottom: .25em;
+.fav h3 {
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;
     text-align: center;
 }
 
-.index_fav:hover h3 {
+.fav:hover h3 {
     color: #131112 !important;
 }
 
-.index_fav img {
-    height: 1.6em;
+.fav img {
+    margin-bottom: auto;
+    vertical-align: middle;
     width: 1.6em;
 }
 
-.index_fav:hover img {
+.fav:hover img {
     filter: none !important;
+}
+
+.listing_container_placeholder {
+    display: none;
 }
 
 .listing {
