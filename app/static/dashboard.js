@@ -1,3 +1,14 @@
+// div expand function
+$('#expand_fav').click(function() {
+    $('#favorites').toggleClass('expanded');
+    $('#expand_fav').text(function(i, text) {
+        return text === "Collapse" ? "Expand" : "Collapse";
+    })
+});
+$('#changes').click(function() {
+    $(this).toggleClass('expanded');
+});
+
 // execute search
 $(function() {
     $('#search_submit').click(function() {
@@ -7,7 +18,7 @@ $(function() {
             data: $('#search_form').serialize(),
             type: 'POST',
             success: function(response) {
-                $("#loading").fadeOut('#loading', function() {
+                $("#loading_search").fadeOut('#loading_search', function() {
                     $('#search_results').html(response);
                     $("#search_results").fadeIn();
                     if ($(".error_box").length) {
@@ -36,7 +47,7 @@ function loading_animation() {
 $(function() {
     $('#another_search').click(function() {
         $("#another_search").fadeOut('#another_search', function() {
-            $("#search_form").trigger("reset");
+            //$("#search_form").trigger("reset");
             $("#search_submit").fadeIn();
             $("#search_results").fadeOut();
         });

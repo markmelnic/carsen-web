@@ -131,6 +131,16 @@ button#another_search {
     border-left: solid .3em #279af1;
 }
 
+.expanded {
+    max-height: 100% !important;
+}
+
+#favorites,
+#changes {
+    max-height: 20em;
+    overflow: hidden;
+}
+
 .listing_container {
     animation: fadein 1s;
     display: flex;
@@ -307,7 +317,7 @@ h3.increase {
     display: inline;
 }
 
-.center-text {
+.z {
     display: block;
     align-self: center;
     justify-self: center;
