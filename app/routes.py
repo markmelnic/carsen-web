@@ -1,4 +1,4 @@
-from mobile_de.methods import surface_search
+from mobile_de.methods import surface_search, checker
 from json import loads
 from flask import (
     request,
@@ -33,6 +33,8 @@ def add_favorites(fav):
             else:
                 current_user.favorites = current_favs + "|" + str(find_dup.id)
             db.session.commit()
+        else:
+            return False
     else:
         fav_db = Favorite(
             url=fav["url"],
@@ -54,7 +56,9 @@ def add_favorites(fav):
 
         db.session.commit()
 
-def get_favorites():
+    return True
+
+def get_favorites(last=False):
     if current_user.favorites == "":
         return ['']
     else:
@@ -72,7 +76,7 @@ def get_favorites():
                     fav.id,
                 ])
 
-    return favs
+    return [favs[-1]] if last else favs
 
 def remove_favorite(id):
     current_favs = current_user.favorites
@@ -186,18 +190,46 @@ def search():
     )
 
 
-@app.route("/add_to_favorites", methods=["GET", "POST"])
+@app.route("/add_to_favorites", methods=["POST"])
 @login_required
 def add_to_favorites():
     fav = loads(request.form.to_dict()["qSet"])
-    add_favorites(fav)
+    status = add_favorites(fav)
 
-    return render_template("favorites.html", favs=get_favorites())
+    return render_template("favorites.html", favs=get_favorites(last=True)) if status else render_template("favorites.html", empty=True)
 
-@app.route("/remove_from_favorites", methods=["GET", "POST"])
+@app.route("/remove_from_favorites", methods=["POST"])
 @login_required
 def remove_from_favorites():
     id = request.form.to_dict()["id"].split("-")[1]
     remove_favorite(id)
+
+    return render_template("favorites.html", favs=get_favorites())
+
+@app.route("/check_changes", methods=["POST"])
+@login_required
+def check_changes():
+    favs = get_favorites()
+    links = [fav[0] for fav in favs]
+    try:
+        changes = checker(favs)
+    except AssertionError:
+        changes = [""]
+
+    return render_template("changes.html", changes=changes)
+
+@app.route("/update_database_changes", methods=["POST"])
+@login_required
+def update_database_changes():
+    changed = request.form.to_dict()
+    print(changed)
+    for i in range(int(len(changed)/2)):
+        item = changed["data[%i][item]"%i]
+        value = changed["data[%i][value]"%i]
+        print(item, value)
+
+        old_price = Favorite.query.get(item).price
+        Favorite.query.get(item).price = int(old_price) + int(value)
+        db.session.commit()
 
     return render_template("favorites.html", favs=get_favorites())
