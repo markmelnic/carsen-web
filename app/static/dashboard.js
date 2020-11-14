@@ -27,7 +27,7 @@ $(function() {
 // search loading animation
 function loading_animation() {
     $("#search_submit").fadeOut('#search_submit', function() {
-        $("#loading").fadeIn();
+        $("#loading_search").fadeIn();
     });
     $("#search_results").fadeOut();
 }
@@ -79,44 +79,49 @@ $(document).on('click', '.index.rm', function() {
     });
 });
 
+// check for changes, update the database and favorites
 $(document).ready(function() {
     var element = $(this).closest('div');
     $.ajax({
         url: '/check_changes',
         type: 'POST',
         success: function(response) {
-            $('#changes').html(response);
+            $("#changes").fadeOut('#changes', function() {
+                $('#changes').html(response);
+            });
             $("#changes").fadeIn()
         },
         error: function(error) {
             console.log(error);
         },
         complete: function() {
-            if ($('#changes').find('div.listing_container').length !== 0) {
-                var data = [];
-                $('#changes').children('div').each(function() {
-                    data.push({
-                        item: $(this).attr('item'),
-                        value: $(this).attr('value')
-                    });
-                });
-                $.ajax({
-                    url: '/update_database_changes',
-                    data: {
-                        data
-                    },
-                    type: 'POST',
-                    success: function(response) {
-                        $("#favorites").fadeOut('#favorites', function() {
-                            $('#favorites').html(response);
+            $("#checking_loader").fadeOut('#checking_loader', function() {
+                if ($('#changes').find('div.listing_container').length !== 0) {
+                    var data = [];
+                    $('#changes').children('div').each(function() {
+                        data.push({
+                            item: $(this).attr('item'),
+                            value: $(this).attr('value')
                         });
-                        $("#favorites").fadeIn();
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            }
+                    });
+                    $.ajax({
+                        url: '/update_database_changes',
+                        data: {
+                            data
+                        },
+                        type: 'POST',
+                        success: function(response) {
+                            $("#favorites").fadeOut('#favorites', function() {
+                                $('#favorites').html(response);
+                            });
+                            $("#favorites").fadeIn();
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
         }
     });
 });

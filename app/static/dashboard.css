@@ -166,6 +166,16 @@ button#another_search {
     border-bottom-left-radius: .5em;
 }
 
+.index img {
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 1.6em;
+}
+
+.change img {
+    margin-bottom: 0;
+}
+
 a.decrease {
     transition: all 0.3s ease-in-out;
     background-color: #70c1b3;
@@ -185,29 +195,21 @@ h3.increase {
 }
 
 .change h3 {
-    font-size: large;
-    color: #131112;
-}
-
-.change h3 {
+    width: 3em;
     margin-top: auto;
     margin-bottom: auto;
     vertical-align: middle;
     text-align: center;
+    font-size: large;
+    color: #131112;
 }
 
 .change:hover h3 {
-    color: #131112 !important;
-}
-
-.change img {
-    margin-top: auto;
-    vertical-align: middle;
-    width: 1.6em;
+    color: #131112;
 }
 
 .change:hover img {
-    filter: none !important;
+    filter: none;
 }
 
 .rm:hover {
@@ -216,10 +218,7 @@ h3.increase {
 }
 
 .rm img {
-    margin-bottom: auto;
-    margin-top: auto;
     vertical-align: middle;
-    width: 1.6em;
 }
 
 .rm:hover img {
@@ -296,7 +295,7 @@ h3.increase {
     border-radius: 100%;
 }
 
-.listing .listing_details {
+.listing_details {
     display: block;
     float: right;
     width: 90%;
@@ -304,7 +303,7 @@ h3.increase {
     margin-bottom: auto;
 }
 
-.listing_details .prm {
+.prm {
     display: inline;
 }
 
@@ -367,7 +366,14 @@ h3.increase {
     animation: fadein 1s;
 }
 
-#loading {
+#checking_loader {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: inline;
+}
+
+.loading {
     display: none;
     text-align: center;
     margin-top: auto;
