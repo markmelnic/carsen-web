@@ -1,0 +1,37 @@
+{% if changes[0] != "" %} {% for change in changes %}
+<div class="listing_container" item="{{change[6]}}" value="{{change[7]}}">
+    {% if change[7]|float > 0.0 %}
+    <a class="index change increase" type="button">
+        <img src="{{ url_for( 'static', filename='images/arrow-up.png' ) }}">
+        <h3 class="index_fav_ac">+{{change[7]|abs}}</h3>{% else %}
+        <a class="index change decrease" type="button">
+            <img src="{{ url_for( 'static', filename='images/arrow-down.png' ) }}">
+            <h3 class="index_fav_ac">{{change[7]|abs}}</h3>
+            {% endif %}
+        </a>
+        <a href="{{ change[0] }} " target="_blank ">
+            <div class="listing">
+                <img src="{{ change[5] }}">
+                <div class="listing_details">
+                    <h3 class="listing_title">{{ change[1] }}</h3>
+                    <div class="prm">
+                        {% if change[7]|float > 0.0 %}
+                        <h3>{{ change[2] }}</h3>
+                        <h3 class="increase">+ {{ change[7]|abs }}</h3>
+                        <h3>€</h3> {% else %}
+                        <h3>{{ change[2] }}</h3>
+                        <h3 class="decrease">- {{ change[7]|abs }}</h3>
+                        <h3>€</h3> {% endif %}
+
+                        <h3> | {{ change[3] }}</h3>
+                        <h3> | {{ change[4] }} km</h3>
+                    </div>
+                </div>
+            </div>
+        </a>
+</div> {% endfor %}
+<div class="listing_container_placeholder"></div>{% else %}
+<div class="listing">
+    <h3 class="center-text">Nothing to display</h3>
+</div>
+</div> {% endif %}
