@@ -7,7 +7,7 @@
         <div class="listing">
             <img src="{{ fav[5] }}">
             <div class="listing_details">
-                <h3 class="listing_title">{{ fav[1] }}</h3>
+                <h3 class="listing_title">{{ fav[1][:50] }}</h3>
                 <div class="prm">
                     <h3>{{ fav[2] }} €</h3>
                     <h3> | {{ fav[3] }}</h3>
@@ -17,7 +17,9 @@
         </div>
     </a>
 </div> {% endfor %}
-<div class="listing_container_placeholder"></div>{% else %}
+<div class="listing_container_placeholder">
+</div> {% else %}
+<div class="listing_container_placeholder"></div>
 <div class="listing">
     <h3 class="center-text">Nothing to display</h3>
 </div>

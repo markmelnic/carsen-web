@@ -44,6 +44,7 @@ def add_favorites(fav):
             reg=fav["reg"],
             mileage=fav["mileage"],
             user_added=current_user.id,
+            availability =True,
         )
         db.session.add(fav_db)
         db.session.flush()
@@ -56,7 +57,7 @@ def add_favorites(fav):
 
         db.session.commit()
 
-    return True
+        return True
 
 def get_favorites(last=False):
     if current_user.favorites == "":
@@ -210,9 +211,14 @@ def remove_from_favorites():
 @login_required
 def check_changes():
     favs = get_favorites()
-    links = [fav[0] for fav in favs]
+    changes = [""]
     try:
-        changes = checker(favs)
+        if len(favs) > 1:
+            changes, removed_items = checker(favs)
+            if not removed_items == []:
+                for item in removed_items:
+                    Vehicle.query.get(item).availability = False
+                    db.session.commit()
     except AssertionError:
         changes = [""]
 

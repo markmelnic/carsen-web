@@ -62,12 +62,15 @@ def surface_search(search_params: list, db=False) -> list:
 def checker(data: list) -> list:
     changed = False
     changed_data = []
+    removed = []
     for item in data:
         new_price = check_car_price(item[0])
-        if not float(new_price) == float(item[2]):
+        if new_price == None:
+            removed.append(item[6])
+        elif not float(new_price) == float(item[2]):
             changed = True
             item.append(new_price - item[2])
             changed_data.append(item)
 
     assert changed
-    return changed_data
+    return changed_data, removed
