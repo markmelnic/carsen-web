@@ -1,6 +1,6 @@
 {% if changes[0] != "" %} {% for change in changes %}
-<div class="listing_container" value="{&quot;item&quot;:&quot;{{change[6]}}&quot;,&quot;change_id&quot;:&quot;{{change[8]}}&quot;}">
-    <a id="chid-{{ change[6] }}" class="index ignore" type="button">
+<div class="listing_container">
+    <a id="chid-{{ change[6] }}" class="index ignore" type="button" value="{&quot;item&quot;:&quot;{{change[6]}}&quot;,&quot;change_id&quot;:&quot;{{change[8]}}&quot;}">
         <img src="{{ url_for( 'static', filename='images/checkmark.png' ) }}">
     </a>
     {% if change[7]|float > 0.0 %}

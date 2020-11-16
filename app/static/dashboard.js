@@ -130,6 +130,7 @@ $(document).ready(function() {
 // ignore change
 $(document).on('click', '.index.ignore', function() {
     var query = $(this).attr("value");
+    var element = $(this).closest('div');
     $.ajax({
         url: '/ignore_change',
         data: {
@@ -137,8 +138,9 @@ $(document).on('click', '.index.ignore', function() {
         },
         type: 'POST',
         success: function(response) {
-            console.log(response);
-            $('.listing_container_placeholder').replaceWith(response);
+            $(element).fadeOut("normal", function() {
+                $(element).remove();
+            });
         },
         error: function(error) {
             console.log(error);
