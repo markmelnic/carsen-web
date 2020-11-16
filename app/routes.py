@@ -31,7 +31,7 @@ def add_favorites(fav):
     current_favs = eval(current_user.favorites)
     if find_dup != None:
         if not find_dup.id in current_favs:
-            current_favs[find_dup.id] = []
+            current_favs[find_dup.id] = [change for change in eval(find_dup.changes)]
             current_user.favorites = str(current_favs)
             db.session.commit()
             return True
@@ -84,7 +84,7 @@ def get_favorites(last=False):
 def find_changes():
     favorites = get_favorites()
     changes = [""]
-    if not favorites == r"{}":
+    if not favorites[0] == "":
         try:
             changes, removed_items = checker(favorites)
             # change listing availability
@@ -273,6 +273,12 @@ def search():
         "results.html",
         results=results,
     )
+
+
+@app.route("/load_favorites", methods=["POST"])
+@login_required
+def load_favorites():
+    return render_template("favorites.html", favs=get_favorites())
 
 
 @app.route("/add_to_favorites", methods=["POST"])
