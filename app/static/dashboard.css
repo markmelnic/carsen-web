@@ -1,3 +1,15 @@
+:root {
+    --background: #F7F7FF;
+    --black: #131112;
+    --grey: #60656f;
+    --green: #70c1b3;
+    --red: #f25f5c;
+    --blue: #279af1;
+    --yellow: #fac345;
+    --default_transition: all 0.3s ease-in-out;
+    --default_box_shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 html {
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
@@ -12,8 +24,8 @@ html::-webkit-scrollbar {
 }
 
 body {
-    color: #131112;
-    background-color: #F7F7FF;
+    color: var(--black);
+    background-color: var(--background);
     max-width: 65%;
     margin: 0 auto;
 }
@@ -23,39 +35,42 @@ h2 {
 }
 
 h3 {
-    color: #60656f;
+    color: var(--grey);
 }
 
 input {
     font-size: large;
     padding: .2em;
     border: none;
-    border-bottom: .1em solid #333;
-    background-color: #F7F7FF;
+    border-bottom: .1em solid var(--black);
+    background-color: var(--background);
     width: fit-content;
     width: 100%;
     margin-bottom: .5em;
 }
 
 button {
+    outline: none;
     cursor: pointer;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--default_box_shadow);
     border: none;
     border-radius: 1em;
     font-size: large;
     font-weight: bold;
     color: #eae8e8;
-    background-color: #279af1;
+    background-color: var(--blue);
     height: 2.5em;
     width: 100%;
     text-align: center;
     animation: fadein 1s;
+    transition: var(--default_transition);
 }
 
 button:hover {
-    color: #131112;
-    background-color: #FAC345;
-    transition: all 0.3s ease-in-out;
+    color: var(--black);
+    background-color: var(--background);
+    box-shadow: 0px 3px 9px 0 rgba(0, 0, 0, 0.3), 0px 3px 6px 0 rgba(0, 0, 0, 0.18);
+    transition: var(--default_transition);
 }
 
 button#another_search {
@@ -69,7 +84,7 @@ button#another_search {
     margin-top: 2em;
     padding-left: 1em;
     margin-left: 1em;
-    border-left: solid .3em #279af1;
+    border-left: solid .3em var(--blue);
 }
 
 .profile>* {
@@ -91,18 +106,13 @@ button#another_search {
     max-height: 1.6em;
     max-width: 1.6em;
     padding: 1em;
-    background-color: #279af1;
-    /*#f25f5c;*/
+    background-color: var(--blue);
     border-radius: 100%;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--default_box_shadow);
 }
 
 #logout {
-    background-color: #f25f5c;
-}
-
-#logout:hover {
-    background-color: #60656f;
+    background-color: var(--red);
 }
 
 .profile_buttons a:last-child {
@@ -110,8 +120,9 @@ button#another_search {
 }
 
 .profile_buttons a:hover {
-    background-color: #FAC345;
-    transition: all 0.3s ease-in-out;
+    background-color: var(--background) !important;
+    transition: var(--default_transition);
+    box-shadow: 0px 3px 9px 0 rgba(0, 0, 0, 0.3), 0px 3px 6px 0 rgba(0, 0, 0, 0.18);
 }
 
 .profile_buttons a img {
@@ -128,7 +139,7 @@ button#another_search {
     margin-top: 2em;
     padding-left: 1em;
     margin-left: 1em;
-    border-left: solid .3em #279af1;
+    border-left: solid .3em var(--blue);
 }
 
 .expanded {
@@ -144,7 +155,7 @@ button#another_search {
 .listing_container {
     animation: fadein 1s;
     display: flex;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--default_box_shadow);
     border-radius: .5em;
     margin: 1em;
 }
@@ -154,9 +165,9 @@ button#another_search {
 }
 
 .listing_container:hover {
-    transition: all 0.3s ease-in-out;
+    transition: var(--default_transition);
     animation: fadein 1s;
-    background-color: #279af1;
+    background-color: var(--blue);
 }
 
 .index {
@@ -187,21 +198,21 @@ button#another_search {
 }
 
 a.decrease {
-    transition: all 0.3s ease-in-out;
-    background-color: #70c1b3;
+    transition: var(--default_transition);
+    background-color: var(--green);
 }
 
 h3.decrease {
-    color: #70c1b3;
+    color: var(--green);
 }
 
 a.increase {
-    transition: all 0.3s ease-in-out;
-    background-color: #f25f5c;
+    transition: var(--default_transition);
+    background-color: var(--red);
 }
 
 h3.increase {
-    color: #f25f5c;
+    color: var(--red);
 }
 
 .change h3 {
@@ -211,11 +222,11 @@ h3.increase {
     vertical-align: middle;
     text-align: center;
     font-size: large;
-    color: #131112;
+    color: var(--black);
 }
 
 .change:hover h3 {
-    color: #131112;
+    color: var(--black);
 }
 
 .change:hover img {
@@ -223,8 +234,8 @@ h3.increase {
 }
 
 .rm:hover {
-    transition: all 0.3s ease-in-out;
-    background-color: #f25f5c;
+    transition: var(--default_transition);
+    background-color: var(--red);
 }
 
 .rm img {
@@ -236,13 +247,13 @@ h3.increase {
 }
 
 .fav:hover {
-    transition: all 0.3s ease-in-out;
-    background-color: #FAC345;
+    transition: var(--default_transition);
+    background-color: var(--yellow);
 }
 
 .fav h3 {
     font-size: x-large;
-    color: #131112;
+    color: var(--black);
 }
 
 .fav h3 {
@@ -253,7 +264,7 @@ h3.increase {
 }
 
 .fav:hover h3 {
-    color: #131112 !important;
+    color: var(--black) !important;
 }
 
 .fav img {
@@ -272,11 +283,11 @@ h3.increase {
 
 .listing {
     width: 100%;
-    background-color: #F7F7FF;
+    background-color: var(--background);
     display: flex;
     flex-direction: row;
     min-height: 5em;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--default_box_shadow);
     border-top-right-radius: .5em;
     border-bottom-right-radius: .5em;
 }
@@ -335,7 +346,7 @@ h3.increase {
     margin-right: 1em;
     float: left;
     width: 15em;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--default_box_shadow);
 }
 
 .parameters * {
@@ -343,7 +354,7 @@ h3.increase {
 }
 
 .parameters h3 {
-    color: #279af1;
+    color: var(--blue);
     padding: 0%;
     margin: 0%;
 }
@@ -355,19 +366,19 @@ h3.increase {
 
 .liniar input {
     margin-top: 0%;
-    background-color: #F7F7FF;
+    background-color: var(--background);
     width: 50%;
 }
 
 .liniar input:first-child {
     margin-right: .1em;
-    background-color: #F7F7FF;
+    background-color: var(--background);
     width: 50%;
 }
 
 .liniar input:last-child {
     margin-left: .1em;
-    background-color: #F7F7FF;
+    background-color: var(--background);
     width: 50%;
 }
 
@@ -404,7 +415,7 @@ h3.increase {
 }
 
 .error_box {
-    color: #131112;
+    color: var(--black);
     display: flex;
     width: auto;
     padding: 1em;
@@ -412,6 +423,6 @@ h3.increase {
     padding-left: 5em;
     padding-right: 5em;
     border: none;
-    background-color: #f25f5c;
+    background-color: var(--red);
     border-radius: 1em;
 }
