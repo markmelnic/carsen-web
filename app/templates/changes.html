@@ -16,7 +16,7 @@
             <div class="listing">
                 <img src="{{ change[5] }}">
                 <div class="listing_details">
-                    <h3 class="listing_title">{{ change[1] }}</h3>
+                    <h3 class="listing_title">{{ change[1][:50] }}</h3>
                     <div class="prm">
                         {% if change[7]|float > 0.0 %}
                         <h3>{{ change[2] }}</h3>

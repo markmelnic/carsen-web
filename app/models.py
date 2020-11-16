@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.name}', '{self.email}', '{self.profile_picture}')"
 
+
 class Vehicle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String, nullable=False)
@@ -32,7 +33,7 @@ class Vehicle(db.Model):
     reg = db.Column(db.Integer, nullable=False)
     mileage = db.Column(db.Integer, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    user_added = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_added = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     availability = db.Column(db.Boolean, default=False, nullable=False)
     changes = db.Column(db.String, default="", nullable=False)
 
