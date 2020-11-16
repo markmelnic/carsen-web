@@ -1,5 +1,7 @@
+from sqlalchemy.sql.schema import Index
 from mobile_de.methods import surface_search, checker
 from json import loads
+from time import time
 from flask import (
     request,
     render_template,
@@ -16,6 +18,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 db.create_all()
 db.session.commit()
+
 
 def add_favorites(fav):
     find_dup = Vehicle.query.filter_by(
@@ -44,7 +47,7 @@ def add_favorites(fav):
             reg=fav["reg"],
             mileage=fav["mileage"],
             user_added=current_user.id,
-            availability =True,
+            availability=True,
         )
         db.session.add(fav_db)
         db.session.flush()
@@ -59,25 +62,69 @@ def add_favorites(fav):
 
         return True
 
-def get_favorites(last=False):
+
+def get_favorites(last=False, only_changes=False):
     if current_user.favorites == "":
-        return ['']
+        return [""]
     else:
         favorites = current_user.favorites.split("|")
         favs = []
         for i in favorites:
             fav = Vehicle.query.get(i)
-            favs.append([
-                    fav.url,
-                    fav.title,
-                    fav.price,
-                    fav.reg,
-                    fav.mileage,
-                    fav.image,
-                    fav.id,
-                ])
+            if only_changes:
+                favs.append([fav.id, fav.changes])
+            else:
+                favs.append(
+                    [
+                        fav.url,
+                        fav.title,
+                        fav.price,
+                        fav.reg,
+                        fav.mileage,
+                        fav.image,
+                        fav.id,
+                    ]
+                )
 
     return [favs[-1]] if last else favs
+
+
+def find_changes(favorites: list):
+    changes = [""]
+    if not favorites[0] == "":
+        try:
+            changes, removed_items = checker(favorites)
+            # change listing availability
+            if not removed_items == []:
+                for item in removed_items:
+                    Vehicle.query.get(item).availability = False
+                    db.session.commit()
+            # index change to database
+            if changes:
+                for change in changes:
+                    vehicle = Vehicle.query.get(change[6])
+                    current_changes = vehicle.changes
+                    timestamp = str(int(time() * 1000000))
+                    change_value = str(change[-1])
+                    if current_changes == "":
+                        vehicle.changes = "0:" + timestamp + ":" + change_value
+                    else:
+                        vehicle.changes = (
+                            current_changes
+                            + "|"
+                            + str(int(current_changes.split("|")[-1].split(":")[0]) + 1)
+                            + ":"
+                            + timestamp
+                            + ":"
+                            + change_value
+                        )
+                    db.session.commit()
+        except AssertionError:
+            # no changes found
+            pass
+
+    return changes
+
 
 def remove_favorite(id):
     current_favs = current_user.favorites
@@ -87,6 +134,7 @@ def remove_favorite(id):
 
     current_user.favorites = "|".join(favs_split)
     db.session.commit()
+
 
 @app.route("/")
 def home():
@@ -196,44 +244,43 @@ def search():
 def add_to_favorites():
     fav = loads(request.form.to_dict()["qSet"])
     status = add_favorites(fav)
+    return (
+        render_template("favorites.html", favs=get_favorites(last=True))
+        if status
+        else render_template("favorites.html", empty=True)
+    )
 
-    return render_template("favorites.html", favs=get_favorites(last=True)) if status else render_template("favorites.html", empty=True)
 
 @app.route("/remove_from_favorites", methods=["POST"])
 @login_required
 def remove_from_favorites():
-    id = request.form.to_dict()["id"].split("-")[1]
-    remove_favorite(id)
-
+    request_ = request.form.to_dict()["id"].split("-")[1]
+    remove_favorite(request_)
     return render_template("favorites.html", favs=get_favorites())
+
 
 @app.route("/check_changes", methods=["POST"])
 @login_required
 def check_changes():
-    favs = get_favorites()
-    changes = [""]
-    try:
-        if len(favs) > 1:
-            changes, removed_items = checker(favs)
-            if not removed_items == []:
-                for item in removed_items:
-                    Vehicle.query.get(item).availability = False
-                    db.session.commit()
-    except AssertionError:
-        changes = [""]
-
+    changes = find_changes(get_favorites())
     return render_template("changes.html", changes=changes)
+
 
 @app.route("/update_database_changes", methods=["POST"])
 @login_required
 def update_database_changes():
     changed = request.form.to_dict()
-    for i in range(int(len(changed)/2)):
-        item = changed["data[%i][item]"%i]
-        value = changed["data[%i][value]"%i]
+    for i in range(int(len(changed) / 2)):
+        item = changed["data[%i][item]" % i]
+        value = changed["data[%i][value]" % i]
 
         old_price = Vehicle.query.get(item).price
         Vehicle.query.get(item).price = int(old_price) + int(value)
         db.session.commit()
 
     return render_template("favorites.html", favs=get_favorites())
+
+@app.route("/ignore_change", methods=["POST"])
+@login_required
+def ignore_change():
+    print()
