@@ -38,3 +38,19 @@ class Vehicle(db.Model):
 
     def __repr__(self):
         return f"Vehicle('{self.url}', '{self.title}')"
+
+
+class FollowedSearch(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    manufacturer = db.Column(db.String, nullable=False)
+    model = db.Column(db.String, nullable=False)
+    price_from = db.Column(db.String)
+    price_to = db.Column(db.String)
+    reg_from = db.Column(db.String)
+    reg_to = db.Column(db.String)
+    mileage_from = db.Column(db.String)
+    mileage_to = db.Column(db.String)
+    transmission = db.Column(db.String)
+
+    def __repr__(self):
+        return f"FollowedSearch('{self.id}', '{self.manufacturer}', '{self.model}')"
