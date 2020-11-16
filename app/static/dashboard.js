@@ -65,6 +65,9 @@ $(document).on('click', '.index.fav', function() {
         type: 'POST',
         success: function(response) {
             $('.listing_container_placeholder').replaceWith(response);
+            if ($('#favorites').find('h3.center-text').length !== 0) {
+                $('#favorites').find('h3.center-text').closest('div').remove();
+            }
         },
         error: function(error) {
             console.log(error);
@@ -83,6 +86,18 @@ $(document).on('click', '.index.rm', function() {
             $(element).fadeOut("normal", function() {
                 $(element).remove();
             });
+            if ($('#favorites').find('div.listing_container').length !== 0) {
+                $.ajax({
+                    url: '/load_favorites',
+                    type: 'POST',
+                    success: function(response) {
+                        $("#favorites").fadeOut('normal', function() {
+                            $('#favorites').html(response);
+                        });
+                        $("#favorites").fadeIn()
+                    },
+                });
+            }
         },
         error: function(error) {
             console.log(error);
@@ -141,6 +156,18 @@ $(document).on('click', '.index.ignore', function() {
             $(element).fadeOut("normal", function() {
                 $(element).remove();
             });
+            if ($('#changes').find('div.listing_container').length !== 0) {
+                $.ajax({
+                    url: '/check_changes',
+                    type: 'POST',
+                    success: function(response) {
+                        $("#changes").fadeOut('normal', function() {
+                            $('#changes').html(response);
+                        });
+                        $("#changes").fadeIn()
+                    },
+                });
+            }
         },
         error: function(error) {
             console.log(error);
