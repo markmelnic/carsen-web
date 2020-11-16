@@ -17,8 +17,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(50), unique=True, nullable=False)
     profile_picture = db.Column(db.String(20), nullable=False, default="default.jpeg")
     password = db.Column(db.String(60), nullable=False)
-    favorites = db.Column(db.String, default="", nullable=False)
-    ignored_changes = db.Column(db.String, default="", nullable=False)
+    favorites = db.Column(db.String, default=r"{}", nullable=False)
 
     def __repr__(self):
         return f"User('{self.name}', '{self.email}', '{self.profile_picture}')"
@@ -35,7 +34,7 @@ class Vehicle(db.Model):
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_added = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     availability = db.Column(db.Boolean, default=False, nullable=False)
-    changes = db.Column(db.String, default="", nullable=False)
+    changes = db.Column(db.String, default=r"{}", nullable=False)
 
     def __repr__(self):
         return f"Vehicle('{self.url}', '{self.title}')"
