@@ -108,18 +108,8 @@ $(document).ready(function() {
         complete: function() {
             $("#checking_loader").fadeOut('#checking_loader', function() {
                 if ($('#changes').find('div.listing_container').length !== 0) {
-                    var data = [];
-                    $('#changes').children('div').each(function() {
-                        data.push({
-                            item: $(this).attr('item'),
-                            value: $(this).attr('value')
-                        });
-                    });
                     $.ajax({
-                        url: '/update_database_changes',
-                        data: {
-                            data
-                        },
+                        url: '/update_favorites',
                         type: 'POST',
                         success: function(response) {
                             $("#favorites").fadeOut('#favorites', function() {
@@ -133,6 +123,25 @@ $(document).ready(function() {
                     });
                 }
             });
+        }
+    });
+});
+
+// ignore change
+$(document).on('click', '.index.ignore', function() {
+    var query = $(this).attr("value");
+    $.ajax({
+        url: '/ignore_change',
+        data: {
+            qSet: query
+        },
+        type: 'POST',
+        success: function(response) {
+            console.log(response);
+            $('.listing_container_placeholder').replaceWith(response);
+        },
+        error: function(error) {
+            console.log(error);
         }
     });
 });

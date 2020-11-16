@@ -58,33 +58,33 @@ def add_favorites(fav):
         return True
 
 
-def get_favorites(last=False, only_changes=False):
+def get_favorites(last=False):
     if current_user.favorites == r"{}":
         return [""]
     else:
         favs = []
         current_favs = eval(current_user.favorites)
+        print(current_favs)
         for item in current_favs:
             fav = Vehicle.query.get(item)
-            if only_changes:
-                favs.append([fav.id, fav.changes])
-            else:
-                favs.append(
-                    [
-                        fav.url,
-                        fav.title,
-                        fav.price,
-                        fav.reg,
-                        fav.mileage,
-                        fav.image,
-                        fav.id,
-                    ]
-                )
+            print(fav.changes)
+            favs.append(
+                [
+                    fav.url,
+                    fav.title,
+                    fav.price,
+                    fav.reg,
+                    fav.mileage,
+                    fav.image,
+                    fav.id,
+                ]
+            )
 
     return [favs[-1]] if last else favs
 
 
-def find_changes(favorites: list):
+def find_changes():
+    favorites = get_favorites()
     changes = [""]
     if not favorites == r"{}":
         try:
@@ -97,6 +97,7 @@ def find_changes(favorites: list):
             # index change to database
             if changes:
                 for change in changes:
+                    print(change)
                     vehicle = Vehicle.query.get(change[6])
                     timestamp = str(int(time() * 1000000))
                     change_value = str(change[-1])
@@ -113,6 +114,7 @@ def find_changes(favorites: list):
                             "value": change_value
                         }
                         vehicle.changes = str(current_changes)
+                    vehicle.price = int(change[2]) + int(change_value)
                     db.session.commit()
         except AssertionError:
             # no changes found
@@ -123,12 +125,13 @@ def find_changes(favorites: list):
 
 def remove_favorite(id):
     current_favs = eval(current_user.favorites)
-    print(current_favs)
     del current_favs[int(id)]
-    print(current_favs)
     current_user.favorites = str(current_favs)
     db.session.commit()
 
+
+def add_ignored_change():
+    print()
 
 @app.route("/")
 def home():
@@ -256,25 +259,19 @@ def remove_from_favorites():
 @app.route("/check_changes", methods=["POST"])
 @login_required
 def check_changes():
-    changes = find_changes(get_favorites())
+    changes = find_changes()
     return render_template("changes.html", changes=changes)
 
 
-@app.route("/update_database_changes", methods=["POST"])
+@app.route("/update_favorites", methods=["POST"])
 @login_required
-def update_database_changes():
-    changed = request.form.to_dict()
-    for i in range(int(len(changed) / 2)):
-        item = changed["data[%i][item]" % i]
-        value = changed["data[%i][value]" % i]
-
-        old_price = Vehicle.query.get(item).price
-        Vehicle.query.get(item).price = int(old_price) + int(value)
-        db.session.commit()
-
+def update_favorites():
     return render_template("favorites.html", favs=get_favorites())
 
 @app.route("/ignore_change", methods=["POST"])
 @login_required
 def ignore_change():
-    print()
+    fav = loads(request.form.to_dict()["qSet"])
+    add_ignored_change()
+    changes = find_changes()
+    return render_template("changes.html", changes=changes)
