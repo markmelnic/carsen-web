@@ -28,14 +28,13 @@ def add_favorites(fav):
         reg=fav["reg"],
         mileage=fav["mileage"],
     ).first()
+    current_favs = eval(current_user.favorites)
     if find_dup != None:
-        current_favs = current_user.favorites
-        if not str(find_dup.id) in current_favs.split("|"):
-            if current_favs == "":
-                current_user.favorites = current_favs + str(find_dup.id)
-            else:
-                current_user.favorites = current_favs + "|" + str(find_dup.id)
+        if not find_dup.id in current_favs:
+            current_favs[find_dup.id] = []
+            current_user.favorites = str(current_favs)
             db.session.commit()
+            return True
         else:
             return False
     else:
@@ -52,25 +51,21 @@ def add_favorites(fav):
         db.session.add(fav_db)
         db.session.flush()
 
-        current_favs = current_user.favorites
-        if current_favs == "":
-            current_user.favorites = current_favs + str(fav_db.id)
-        else:
-            current_user.favorites = current_favs + "|" + str(fav_db.id)
+        current_favs[fav_db.id] = []
+        current_user.favorites = str(current_favs)
 
         db.session.commit()
-
         return True
 
 
 def get_favorites(last=False, only_changes=False):
-    if current_user.favorites == "":
+    if current_user.favorites == r"{}":
         return [""]
     else:
-        favorites = current_user.favorites.split("|")
         favs = []
-        for i in favorites:
-            fav = Vehicle.query.get(i)
+        current_favs = eval(current_user.favorites)
+        for item in current_favs:
+            fav = Vehicle.query.get(item)
             if only_changes:
                 favs.append([fav.id, fav.changes])
             else:
@@ -91,7 +86,7 @@ def get_favorites(last=False, only_changes=False):
 
 def find_changes(favorites: list):
     changes = [""]
-    if not favorites[0] == "":
+    if not favorites == r"{}":
         try:
             changes, removed_items = checker(favorites)
             # change listing availability
@@ -103,21 +98,21 @@ def find_changes(favorites: list):
             if changes:
                 for change in changes:
                     vehicle = Vehicle.query.get(change[6])
-                    current_changes = vehicle.changes
                     timestamp = str(int(time() * 1000000))
                     change_value = str(change[-1])
-                    if current_changes == "":
-                        vehicle.changes = "0:" + timestamp + ":" + change_value
-                    else:
-                        vehicle.changes = (
-                            current_changes
-                            + "|"
-                            + str(int(current_changes.split("|")[-1].split(":")[0]) + 1)
-                            + ":"
-                            + timestamp
-                            + ":"
-                            + change_value
-                        )
+                    current_changes = eval(vehicle.changes)
+                    try:
+                        current_changes[list(current_changes.items())[-1][0] + 1] = {
+                            "timestamp": timestamp,
+                            "value": change_value
+                        }
+                        vehicle.changes = str(current_changes)
+                    except IndexError:
+                        current_changes[0] = {
+                            "timestamp": timestamp,
+                            "value": change_value
+                        }
+                        vehicle.changes = str(current_changes)
                     db.session.commit()
         except AssertionError:
             # no changes found
@@ -127,12 +122,11 @@ def find_changes(favorites: list):
 
 
 def remove_favorite(id):
-    current_favs = current_user.favorites
-
-    favs_split = current_favs.split("|")
-    favs_split.pop(favs_split.index(id))
-
-    current_user.favorites = "|".join(favs_split)
+    current_favs = eval(current_user.favorites)
+    print(current_favs)
+    del current_favs[int(id)]
+    print(current_favs)
+    current_user.favorites = str(current_favs)
     db.session.commit()
 
 
