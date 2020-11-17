@@ -9,9 +9,9 @@
             <div class="listing_details">
                 <h3 class="listing_title">{{ fav[1][:50] }}</h3>
                 <div class="prm">
-                    <h3>{{ fav[2] }} €</h3>
-                    <h3> | {{ fav[3] }}</h3>
-                    <h3> | {{ fav[4] }} km</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/price_tag.png' ) }}">{{ fav[2] }} € |</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/calendar.png' ) }}">{{ fav[3] }} |</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/mileage.png' ) }}">{{ fav[4] }} km</h3>
                 </div>
             </div>
         </div>

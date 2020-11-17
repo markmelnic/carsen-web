@@ -13,10 +13,10 @@
             <div class="listing_details">
                 <h3 class="listing_title">{{ result[1][:50] }}</h3>
                 <div class="prm">
-                    <h3>{{ result[2] }} €</h3>
-                    <h3> | {{ result[3] }}</h3>
-                    <h3> | {{ result[4] }} km</h3>
-                    <h3> | {{'%0.2f'| format(result[6]|float)}}°</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/price_tag.png' ) }}">{{ result[2] }} € |</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/calendar.png' ) }}">{{ result[3] }} |</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/mileage.png' ) }}">{{ result[4] }} km |</h3>
+                    <h3><img src="{{ url_for( 'static', filename='images/score.png' ) }}">{{'%0.2f'| format(result[6]|float)}}°</h3>
                 </div>
             </div>
         </div>

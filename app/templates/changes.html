@@ -18,16 +18,16 @@
                 <div class="listing_details">
                     <h3 class="listing_title">{{ change[1][:50] }}</h3>
                     <div class="prm">
+                        <h3><img src="{{ url_for( 'static', filename='images/price_tag.png' ) }}">{{ change[2] }}</h3>
                         {% if change[7]|float > 0.0 %}
-                        <h3>{{ change[2] }}</h3>
-                        <h3 class="increase">+{{ change[7]|abs }}€</h3>
+                        <h3 class="increase">+{{ change[7]|abs }}</h3>
                         {% else %}
-                        <h3>{{ change[2] }}</h3>
-                        <h3 class="decrease">-{{ change[7]|abs }}€</h3>
+                        <h3 class="decrease">-{{ change[7]|abs }}</h3>
                         {% endif %}
+                        <h3>€ |</h3>
 
-                        <h3> | {{ change[3] }}</h3>
-                        <h3> | {{ change[4] }} km</h3>
+                        <h3><img src="{{ url_for( 'static', filename='images/calendar.png' ) }}">{{ change[3] }} |</h3>
+                        <h3><img src="{{ url_for( 'static', filename='images/mileage.png' ) }}">{{ change[4] }} km</h3>
                     </div>
                 </div>
             </div>

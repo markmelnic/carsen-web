@@ -8,6 +8,7 @@
     --yellow: #fac345;
     --default_transition: all 0.3s ease-in-out;
     --default_box_shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --highlight_box_shadow: 0px 3px 9px 0 rgba(0, 0, 0, 0.3), 0px 3px 6px 0 rgba(0, 0, 0, 0.18);
 }
 
 html {
@@ -69,7 +70,7 @@ button {
 button:hover {
     color: var(--black);
     background-color: var(--background);
-    box-shadow: 0px 3px 9px 0 rgba(0, 0, 0, 0.3), 0px 3px 6px 0 rgba(0, 0, 0, 0.18);
+    box-shadow: var(--highlight_box_shadow);
     transition: var(--default_transition);
 }
 
@@ -122,7 +123,6 @@ button#another_search {
 .profile_buttons a:hover {
     background-color: var(--background) !important;
     transition: var(--default_transition);
-    box-shadow: 0px 3px 9px 0 rgba(0, 0, 0, 0.3), 0px 3px 6px 0 rgba(0, 0, 0, 0.18);
 }
 
 .profile_buttons a img {
@@ -185,6 +185,11 @@ button#another_search {
     margin-bottom: auto;
     border-top-left-radius: .5em;
     border-bottom-left-radius: .5em;
+    transition: var(--default_transition);
+}
+
+.index:hover {
+    box-shadow: var(--highlight_box_shadow);
 }
 
 .index img {
@@ -213,6 +218,10 @@ a.increase {
 
 h3.increase {
     color: var(--red);
+}
+
+.ignore {
+    transition: var(--default_transition);
 }
 
 .change h3 {
@@ -326,6 +335,18 @@ h3.increase {
 
 .prm {
     display: inline;
+}
+
+.prm h3 {
+    margin-block-start: 0;
+    padding-left: 0;
+}
+
+.prm * img {
+    border-radius: 0;
+    padding-right: .1em;
+    height: 1em;
+    width: 1em;
 }
 
 .center-text {
