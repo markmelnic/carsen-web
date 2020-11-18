@@ -146,10 +146,25 @@ button#another_search {
     max-height: 100% !important;
 }
 
+#following,
 #favorites,
 #changes {
     max-height: 20em;
     overflow: hidden;
+}
+
+.follow_container {
+    animation: fadein 1s;
+    display: flex;
+    box-shadow: var(--default_box_shadow);
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.follow_container:hover {
+    transition: var(--default_transition);
+    animation: fadein 1s;
+    background-color: var(--blue);
 }
 
 .listing_container {
@@ -424,7 +439,9 @@ h3.increase {
     animation: fadein 1s;
 }
 
-#checking_loader {
+#changes_loader,
+#follows_loader {
+    display: inherit;
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
