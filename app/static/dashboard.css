@@ -153,20 +153,6 @@ button#another_search {
     overflow: hidden;
 }
 
-.follow_container {
-    animation: fadein 1s;
-    display: flex;
-    box-shadow: var(--default_box_shadow);
-    border-radius: .5em;
-    margin: 1em;
-}
-
-.follow_container:hover {
-    transition: var(--default_transition);
-    animation: fadein 1s;
-    background-color: var(--blue);
-}
-
 .listing_container {
     animation: fadein 1s;
     display: flex;
@@ -314,6 +300,11 @@ h3.increase {
     box-shadow: var(--default_box_shadow);
     border-top-right-radius: .5em;
     border-bottom-right-radius: .5em;
+}
+
+.listing.empty_text {
+    box-shadow: none;
+    min-height: 1em;
 }
 
 .listing h3.listing_title {

@@ -107,7 +107,7 @@ $(document).on('click', '.index.rm', function() {
 });
 
 // ignore change
-$(document).on('click', '.index.ignore', function() {
+$(document).on('click', '.index.chg.ignore', function() {
     var query = $(this).attr("value");
     var element = $(this).closest('div');
     $.ajax({
@@ -201,6 +201,70 @@ $(document).ready(function() {
                     });
                 }
             });
+        }
+    });
+});
+
+// remove item from following
+$(document).on('click', '.index.follow.rm', function() {
+    var element = $(this).closest('div').parent('div');
+    console.log(element)
+    $.ajax({
+        url: '/remove_from_following',
+        data: { id: $(this).attr("id") },
+        type: 'POST',
+        success: function(response) {
+            $(element).fadeOut('slow', function() {
+                $(element).remove();
+            });
+            if ($('#following').find('div.follow_container').length !== 0) {
+                $.ajax({
+                    url: '/fetch_followed',
+                    type: 'POST',
+                    success: function(response) {
+                        $("#following").fadeOut('slow', function() {
+                            $('#following').html(response);
+                        });
+                        $("#following").fadeIn()
+                    },
+                });
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+// ignore follow result
+$(document).on('click', '.index.follow.ignore', function() {
+    var query = $(this).attr("value");
+    var element = $(this).closest('div');
+    $.ajax({
+        url: '/ignore_follow_result',
+        data: {
+            qSet: query
+        },
+        type: 'POST',
+        success: function(response) {
+            $(element).fadeOut('slow', function() {
+                $(element).remove();
+            });
+            if ($('#following').find('div.follow_container').length !== 0) {
+                $.ajax({
+                    url: '/fetch_followed',
+                    type: 'POST',
+                    success: function(response) {
+                        $("#following").fadeOut('slow', function() {
+                            $('#following').html(response);
+                        });
+                        $("#following").fadeIn()
+                    },
+                });
+            }
+        },
+        error: function(error) {
+            console.log(error);
         }
     });
 });
