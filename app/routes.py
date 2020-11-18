@@ -190,9 +190,25 @@ def check_load_followed():
                 search.mileage_from,
                 search.mileage_to,
             ]
-            followed_items.append([params, surface_search(params[1:])])
+            try:
+                results = surface_search(params[1:])
+                ignored = [results.index(r) for r in results if r[5] in currently_followed[follow]]
+                for i in sorted(ignored, reverse=True):
+                    del results[i]
+
+            except AssertionError:
+                results = []
+                continue
+            finally:
+                followed_items.append([params, results])
 
     return followed_items
+
+def remove_follow_param(id):
+    currently_followed = eval(current_user.followed)
+    del currently_followed[int(id)]
+    current_user.followed = str(currently_followed)
+    db.session.commit()
 
 @app.route("/")
 def home():
@@ -379,3 +395,22 @@ def add_follow():
     db.session.commit()
 
     return render_template("following.html", follows=check_load_followed())
+
+@app.route("/remove_from_following", methods=["POST"])
+@login_required
+def remove_from_following():
+    request_ = request.form.to_dict()["id"].split("-")[1]
+    remove_follow_param(request_)
+    return "True"
+
+@app.route("/ignore_follow_result", methods=["POST"])
+@login_required
+def ignore_follow_result():
+    follow_to_ignore = loads(request.form.to_dict()["qSet"])
+    currently_follwing = eval(current_user.followed)
+    currently_follwing[int(follow_to_ignore["id"])].append(
+        str(follow_to_ignore["url"])
+    )
+    current_user.followed = str(currently_follwing)
+    db.session.commit()
+    return "True"
