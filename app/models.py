@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     profile_picture = db.Column(db.String(20), nullable=False, default="default.jpeg")
     password = db.Column(db.String(60), nullable=False)
     favorites = db.Column(db.String, default=r"{}", nullable=False)
+    followed = db.Column(db.String, default="", nullable=False)
 
     def __repr__(self):
         return f"User('{self.name}', '{self.email}', '{self.profile_picture}')"

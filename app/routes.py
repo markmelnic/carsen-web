@@ -13,7 +13,7 @@ from flask import (
 )
 from app import app, db, bcrypt
 from app.forms import LoginForm, RegisterForm, SearchForm
-from app.models import User, Vehicle
+from app.models import FollowedSearch, User, Vehicle
 from flask_login import login_user, current_user, logout_user, login_required
 
 db.create_all()
@@ -136,7 +136,10 @@ def find_changes():
                     last_change_id = list(veh_changes.items())[-1][0]
                     changed_by = int(veh_changes[last_change_id]["value"])
                     for change in veh_changes:
-                        if not change in current_favs[item] and not change == last_change_id:
+                        if (
+                            not change in current_favs[item]
+                            and not change == last_change_id
+                        ):
                             changed_by += int(veh_changes[change]["value"])
                             current_favs[item].append(change)
                     added_change = [
@@ -324,4 +327,31 @@ def ignore_change():
     )
     current_user.favorites = str(current_favs)
     db.session.commit()
+    return "True"
+
+@app.route("/follow", methods=["POST"])
+@login_required
+def follow():
+    followed_search = FollowedSearch(
+            manufacturer=request.form["manufacturer"],
+            model=request.form["model"],
+            price_from=request.form["price_from"],
+            price_to=request.form["price_to"],
+            reg_from=request.form["reg_from"],
+            reg_to=request.form["reg_to"],
+            mileage_from=request.form["mileage_from"],
+            mileage_to=request.form["mileage_to"],
+            transmission=""
+        )
+    db.session.add(followed_search)
+    db.session.flush()
+
+    currently_followed = current_user.followed
+    if currently_followed == "":
+        current_user.followed += str(followed_search.id)
+    else:
+        current_user.followed += "|" + str(followed_search.id)
+
+    db.session.commit()
+
     return "True"
