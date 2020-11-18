@@ -16,6 +16,15 @@
 </div>
 
 <div class="container">
+    <h2>Following</h2>
+    <div id="following">
+        <div class="listing">
+            <h3 id="checking_loader" class="loading">Checking...</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
     <h2>Changes</h2>
     <div id="changes">
         <div class="listing">
@@ -56,9 +65,12 @@
                 <div class="liniar">
                     {{ search_form.mileage_from(placeholder="from") }} {{ search_form.mileage_to(placeholder="to") }}</div>
                 <!-- Submit button -->
-                <br><button id="search_submit" type="button"> Search!</button>
-                <h3 id="loading_search" class="loading_animate loading">Searching...</h3>
+                <div class="form_buttons">
+                    <button id="follow_submit" type="button"> Follow</button>
+                    <button id="search_submit" type="button"> Search</button>
+                </div>
                 <button id="another_search" type="button"> Another search</button>
+                <h3 id="loading_search" class="loading_animate loading">Searching...</h3>
             </form>
         </div>
         <div class="results" id="search_results">

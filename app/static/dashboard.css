@@ -374,6 +374,22 @@ h3.increase {
     font-size: large;
 }
 
+.form_buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.form_buttons button {
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
+}
+
 .parameters h3 {
     color: var(--blue);
     padding: 0%;
