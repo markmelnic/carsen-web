@@ -195,10 +195,11 @@ def check_load_followed():
                 ignored = [results.index(r) for r in results if r[5] in currently_followed[follow]]
                 for i in sorted(ignored, reverse=True):
                     del results[i]
-
             except AssertionError:
                 results = []
-                continue
+            except AttributeError:
+                print("ATTENTION ||| HARD LIMIT REACHED ||| CAPTCHA TRIGGERED")
+                results = []
             finally:
                 followed_items.append([params, results])
 

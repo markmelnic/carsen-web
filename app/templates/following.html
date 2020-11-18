@@ -16,10 +16,11 @@
 
     {% if item[1] is defined and item[1]|length > 0 %} {% for result in item[1] %}
     <div class="listing_container">
-        <a class="index follow fav" type="button" id="atf{{loop.index}}" value="{&quot;url&quot;:&quot;{{ result[0] }}&quot;,&quot;image&quot;:&quot;{{ result[5] }}&quot;,&quot;title&quot;:&quot;{{ result[1] }}&quot;,&quot;price&quot;:&quot;{{ result[2] }}&quot;,&quot;reg&quot;:&quot;{{ result[3] }}&quot;,&quot;mileage&quot;:&quot;{{ result[4] }}&quot;}">
+        <a class="index follow fav" type="button" id="atf{{loop.index}}" value="{&quot;url&quot;:&quot;{{ result[0] }}&quot;,&quot;image&quot;:&quot;{{ result[5] }}&quot;,&quot;title&quot;:&quot;{{ result[1] }}&quot;,&quot;price&quot;:&quot;{{ result[2] }}&quot;,&quot;reg&quot;:&quot;{{ result[3] }}&quot;,&quot;mileage&quot;:&quot;{{ result[4] }}&quot;}"
+            ignore="{&quot;id&quot;:&quot;{{item[0][0]}}&quot;,&quot;url&quot;:&quot;{{result[5]}}&quot;}">
             <img src="{{ url_for( 'static', filename='images/star.png' ) }}">
         </a>
-        <a class="index follow ignore" type="button" value="{&quot;id&quot;:&quot;{{item[0][0]}}&quot;,&quot;url&quot;:&quot;{{result[5]}}&quot;}">
+        <a class="index follow ignore" type="button" ignore="{&quot;id&quot;:&quot;{{item[0][0]}}&quot;,&quot;url&quot;:&quot;{{result[5]}}&quot;}">
             <img src="{{ url_for( 'static', filename='images/remove.png' ) }}">
         </a>
         <a href="{{ result[0] }} " target="_blank ">

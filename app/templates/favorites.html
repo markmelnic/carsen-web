@@ -1,6 +1,6 @@
 {% if not empty %}{% if favs[0] != "" %} {% for fav in favs %}
 <div class="listing_container">
-    <a id="favid-{{ fav[6] }}" class="index rm" type="button">
+    <a id="favid-{{ fav[6] }}" class="index favorites rm" type="button">
         <img src="{{ url_for( 'static', filename='images/remove.png' ) }}">
     </a>
     <a href="{{ fav[0] }} " target="_blank ">

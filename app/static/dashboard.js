@@ -77,7 +77,7 @@ $(document).on('click', '.index.fav', function() {
 });
 
 // remove item from favorites
-$(document).on('click', '.index.rm', function() {
+$(document).on('click', '.index.favorites.rm', function() {
     var element = $(this).closest('div');
     $.ajax({
         url: '/remove_from_favorites',
@@ -142,12 +142,13 @@ $(document).on('click', '.index.chg.ignore', function() {
 // follow search parameters
 $(function() {
     $('#follow_submit').click(function() {
+        var form_data = $('#search_form').serialize();
+        $("#search_form").trigger("reset");
         $.ajax({
             url: '/add_follow',
-            data: $('#search_form').serialize(),
+            data: form_data,
             type: 'POST',
             success: function(response) {
-                $("#search_form").trigger("reset");
                 $("#following").fadeOut('slow', function() {
                     $('#following').html(response);
                 });
@@ -208,7 +209,6 @@ $(document).ready(function() {
 // remove item from following
 $(document).on('click', '.index.follow.rm', function() {
     var element = $(this).closest('div').parent('div');
-    console.log(element)
     $.ajax({
         url: '/remove_from_following',
         data: { id: $(this).attr("id") },
@@ -217,7 +217,7 @@ $(document).on('click', '.index.follow.rm', function() {
             $(element).fadeOut('slow', function() {
                 $(element).remove();
             });
-            if ($('#following').find('div.follow_container').length !== 0) {
+            if ($('#following').find('div.follow_container').length == 0) {
                 $.ajax({
                     url: '/fetch_followed',
                     type: 'POST',
@@ -237,8 +237,8 @@ $(document).on('click', '.index.follow.rm', function() {
 });
 
 // ignore follow result
-$(document).on('click', '.index.follow.ignore', function() {
-    var query = $(this).attr("value");
+$(document).on('click', '.index.follow.ignore, .index.follow.fav', function() {
+    var query = $(this).attr("ignore");
     var element = $(this).closest('div');
     $.ajax({
         url: '/ignore_follow_result',
@@ -250,7 +250,7 @@ $(document).on('click', '.index.follow.ignore', function() {
             $(element).fadeOut('slow', function() {
                 $(element).remove();
             });
-            if ($('#following').find('div.follow_container').length !== 0) {
+            if ($('#following').find('div.follow_container').length == 0) {
                 $.ajax({
                     url: '/fetch_followed',
                     type: 'POST',
