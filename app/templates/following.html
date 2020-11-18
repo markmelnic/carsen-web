@@ -1,0 +1,46 @@
+{% if not empty %}{% if follows[0] != "" %} {% for item in follows %}
+<div class="follow_container">
+    <a id="folid-{{ item[0][0] }}" class="index rm" type="button">
+        <img src="{{ url_for( 'static', filename='images/remove.png' ) }}">
+    </a>
+    <h3>Parameters: </h3>
+    <h3>{{ item[0][1] }} {{ item[0][2] }}</h3>
+    <h3>{{ item[0][3] }}</h3>
+    <h3>{{ item[0][4] }}</h3>
+    <h3>{{ item[0][5] }}</h3>
+    <h3>{{ item[0][6] }}</h3>
+    <h3>{{ item[0][7] }}</h3>
+    <h3>{{ item[0][8] }}</h3>
+</div>
+
+{% for result in item[1] %}
+<div class="listing_container">
+    <a class="index fav" type="button" id="atf{{loop.index}}" value="{&quot;url&quot;:&quot;{{ result[0] }}&quot;,&quot;image&quot;:&quot;{{ result[5] }}&quot;,&quot;title&quot;:&quot;{{ result[1] }}&quot;,&quot;price&quot;:&quot;{{ result[2] }}&quot;,&quot;reg&quot;:&quot;{{ result[3] }}&quot;,&quot;mileage&quot;:&quot;{{ result[4] }}&quot;}">
+        <img src="{{ url_for( 'static', filename='images/star.png' ) }}">
+    </a>
+    <a class="index rm" type="button">
+        <img src="{{ url_for( 'static', filename='images/remove.png' ) }}">
+    </a>
+    <div class="listing">
+        <img src="{{ result[5] }}">
+        <div class="listing_details">
+            <h3 class="listing_title">{{ result[1][:50] }}</h3>
+            <div class="prm">
+                <h3><img src="{{ url_for( 'static', filename='images/price_tag.png' ) }}">{{ result[2] }} € |</h3>
+                <h3><img src="{{ url_for( 'static', filename='images/calendar.png' ) }}">{{ result[3] }} |</h3>
+                <h3><img src="{{ url_for( 'static', filename='images/mileage.png' ) }}">{{ result[4] }} km</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endfor %}
+<div class="listing_container_placeholder">
+</div> {% else %}
+<div class="listing_container_placeholder"></div>
+<div class="listing">
+    <h3 class="center-text">Nothing to display</h3>
+</div>
+</div>
+{% endif %} {% else %}
+<div class="listing_container_placeholder"></div>
+{% endif %}
