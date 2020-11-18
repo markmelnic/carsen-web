@@ -171,9 +171,28 @@ def remove_favorite(id):
     db.session.commit()
 
 
-def add_ignored_change():
-    print()
+def check_load_followed():
+    if current_user.followed == r"{}":
+        return [""]
+    else:
+        followed_items = []
+        currently_followed = eval(current_user.followed)
+        for follow in currently_followed:
+            search = FollowedSearch.query.get(int(follow))
+            params = [
+                search.id,
+                search.manufacturer,
+                search.model,
+                search.price_from,
+                search.price_to,
+                search.reg_from,
+                search.reg_to,
+                search.mileage_from,
+                search.mileage_to,
+            ]
+            followed_items.append([params, surface_search(params[1:])])
 
+    return followed_items
 
 @app.route("/")
 def home():
@@ -329,9 +348,16 @@ def ignore_change():
     db.session.commit()
     return "True"
 
-@app.route("/follow", methods=["POST"])
+
+@app.route("/fetch_followed", methods=["POST"])
 @login_required
-def follow():
+def fetch_followed():
+    return render_template("following.html", follows=check_load_followed())
+
+
+@app.route("/add_follow", methods=["POST"])
+@login_required
+def add_follow():
     followed_search = FollowedSearch(
             manufacturer=request.form["manufacturer"],
             model=request.form["model"],
@@ -346,12 +372,10 @@ def follow():
     db.session.add(followed_search)
     db.session.flush()
 
-    currently_followed = current_user.followed
-    if currently_followed == "":
-        current_user.followed += str(followed_search.id)
-    else:
-        current_user.followed += "|" + str(followed_search.id)
+    currently_followed = eval(current_user.followed)
+    currently_followed[followed_search.id] = []
+    current_user.followed = str(currently_followed)
 
     db.session.commit()
 
-    return "True"
+    return render_template("following.html", follows=check_load_followed())
