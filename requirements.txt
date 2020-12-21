@@ -10,3 +10,4 @@ SQLAlchemy==1.3.20
 scalg==0.1.5.1
 beautifulsoup4==4.9.3
 gunicorn
+email_validator
