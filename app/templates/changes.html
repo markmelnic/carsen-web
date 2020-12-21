@@ -1,39 +1,44 @@
-{% if changes[0] != "" %} {% for change in changes %}
-<div class="listing_container">
-    <a id="chid-{{ change[6] }}" class="index chg ignore" type="button" value="{&quot;item&quot;:&quot;{{change[6]}}&quot;,&quot;change_id&quot;:&quot;{{change[8]}}&quot;}">
-        <img src="{{ url_for( 'static', filename='images/checkmark.png' ) }}">
-    </a>
-    {% if change[7]|float > 0.0 %}
-    <a class="index change increase" type="button">
-        <img src="{{ url_for( 'static', filename='images/arrow-up.png' ) }}">
-        <h3 class="index_fav_ac">+{{change[7]|abs}}</h3>{% else %}
-        <a class="index change decrease" type="button">
-            <img src="{{ url_for( 'static', filename='images/arrow-down.png' ) }}">
-            <h3 class="index_fav_ac">-{{change[7]|abs}}</h3>
+{% if changes[0] != "" %}
+    {% for change in changes %}
+        <div class="listing_container">
+            <a id="chid-{{ change[6] }}" class="index chg ignore" type="button" value="{&quot;item&quot;:&quot;{{change[6]}}&quot;,&quot;change_id&quot;:&quot;{{change[8]}}&quot;}">
+                <img src="{{ url_for( 'static', filename='images/checkmark.png' ) }}">
+            </a>
+            {% if change[7]|float > 0.0 %}
+                <a class="index change increase" type="button">
+                    <img src="{{ url_for( 'static', filename='images/arrow-up.png' ) }}">
+                    <h3 class="index_fav_ac">+{{change[7]|abs}}</h3>
+            {% else %}
+                <a class="index change decrease" type="button">
+                    <img src="{{ url_for( 'static', filename='images/arrow-down.png' ) }}">
+                    <h3 class="index_fav_ac">-{{change[7]|abs}}</h3>
             {% endif %}
-        </a>
-        <a href="{{ change[0] }} " target="_blank ">
-            <div class="listing">
-                <img src="{{ change[5] }}">
-                <div class="listing_details">
-                    <h3 class="listing_title">{{ change[1][:50] }}</h3>
-                    <div class="prm">
-                        <h3><img src="{{ url_for( 'static', filename='images/price_tag.png' ) }}">{{ change[2] }}</h3>
-                        {% if change[7]|float > 0.0 %}
-                        <h3 class="increase">+{{ change[7]|abs }}</h3>
-                        {% else %}
-                        <h3 class="decrease">-{{ change[7]|abs }}</h3>
-                        {% endif %}
-                        <h3>€ |</h3>
+                </a>
+            <a href="{{ change[0] }} " target="_blank ">
+                <div class="listing">
+                    <img src="{{ change[5] }}">
+                    <div class="listing_details">
+                        <h3 class="listing_title">{{ change[1][:50] }}</h3>
+                        <div class="prm">
+                            <h3><img src="{{ url_for( 'static', filename='images/price_tag.png' ) }}">{{ change[2] }}</h3>
+                            {% if change[7]|float > 0.0 %}
+                            <h3 class="increase">+{{ change[7]|abs }}</h3>
+                            {% else %}
+                            <h3 class="decrease">-{{ change[7]|abs }}</h3>
+                            {% endif %}
+                            <h3>€ |</h3>
 
-                        <h3><img src="{{ url_for( 'static', filename='images/calendar.png' ) }}">{{ change[3] }} |</h3>
-                        <h3><img src="{{ url_for( 'static', filename='images/mileage.png' ) }}">{{ change[4] }} km</h3>
+                            <h3><img src="{{ url_for( 'static', filename='images/calendar.png' ) }}">{{ change[3] }} |</h3>
+                            <h3><img src="{{ url_for( 'static', filename='images/mileage.png' ) }}">{{ change[4] }} km</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-</div> {% endfor %} {% else %}
-<div class="listing">
-    <h3 class="center-text">Nothing to display</h3>
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="listing">
+        <h3 class="center-text">Nothing to display</h3>
+    </div>
 </div>
-</div> {% endif %}
+{% endif %}

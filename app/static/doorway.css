@@ -79,6 +79,7 @@ input.submit_button:focus {
 
 button,
 input.submit_button.ghost {
+    outline: none;
     background-color: transparent;
     border-color: #F7F7FF;
 }
