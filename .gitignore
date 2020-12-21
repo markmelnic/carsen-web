@@ -131,5 +131,4 @@ dmypy.json
 # Other
 app/static/images
 secrets.py
-*.json
 *.db
