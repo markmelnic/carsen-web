@@ -5,6 +5,7 @@ $('#expand_fav').click(function() {
         return text === "Collapse" ? "Expand" : "Collapse";
     })
 });
+
 $('#changes').click(function() {
     $(this).toggleClass('expanded');
 });

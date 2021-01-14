@@ -66,8 +66,7 @@ def get_favorites(last=False):
         current_favs = eval(current_user.favorites)
         for item in current_favs:
             fav = Vehicle.query.get(item)
-            favs.append(
-                [
+            favs.append([
                     fav.url,
                     fav.title,
                     fav.price,
@@ -75,8 +74,7 @@ def get_favorites(last=False):
                     fav.mileage,
                     fav.image,
                     fav.id,
-                ]
-            )
+                ])
 
     return [favs[-1]] if last else favs
 
@@ -192,7 +190,11 @@ def check_load_followed():
             ]
             try:
                 results = surface_search(params[1:])
-                ignored = [results.index(r) for r in results if r[5] in currently_followed[follow]]
+                ignored = [
+                    results.index(r)
+                    for r in results
+                    if r[5] in currently_followed[follow]
+                ]
                 for i in sorted(ignored, reverse=True):
                     del results[i]
             except AssertionError:
@@ -205,11 +207,13 @@ def check_load_followed():
 
     return followed_items
 
+
 def remove_follow_param(id):
     currently_followed = eval(current_user.followed)
     del currently_followed[int(id)]
     current_user.followed = str(currently_followed)
     db.session.commit()
+
 
 @app.route("/")
 def home():
@@ -376,16 +380,16 @@ def fetch_followed():
 @login_required
 def add_follow():
     followed_search = FollowedSearch(
-            manufacturer=request.form["manufacturer"],
-            model=request.form["model"],
-            price_from=request.form["price_from"],
-            price_to=request.form["price_to"],
-            reg_from=request.form["reg_from"],
-            reg_to=request.form["reg_to"],
-            mileage_from=request.form["mileage_from"],
-            mileage_to=request.form["mileage_to"],
-            transmission=""
-        )
+        manufacturer=request.form["manufacturer"],
+        model=request.form["model"],
+        price_from=request.form["price_from"],
+        price_to=request.form["price_to"],
+        reg_from=request.form["reg_from"],
+        reg_to=request.form["reg_to"],
+        mileage_from=request.form["mileage_from"],
+        mileage_to=request.form["mileage_to"],
+        transmission="",
+    )
     db.session.add(followed_search)
     db.session.flush()
 
@@ -397,6 +401,7 @@ def add_follow():
 
     return render_template("following.html", follows=check_load_followed())
 
+
 @app.route("/remove_from_following", methods=["POST"])
 @login_required
 def remove_from_following():
@@ -404,14 +409,13 @@ def remove_from_following():
     remove_follow_param(request_)
     return "True"
 
+
 @app.route("/ignore_follow_result", methods=["POST"])
 @login_required
 def ignore_follow_result():
     follow_to_ignore = loads(request.form.to_dict()["qSet"])
     currently_follwing = eval(current_user.followed)
-    currently_follwing[int(follow_to_ignore["id"])].append(
-        str(follow_to_ignore["url"])
-    )
+    currently_follwing[int(follow_to_ignore["id"])].append(str(follow_to_ignore["url"]))
     current_user.followed = str(currently_follwing)
     db.session.commit()
     return "True"
