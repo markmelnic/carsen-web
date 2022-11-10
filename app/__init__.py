@@ -9,11 +9,12 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('DATABASE_URL')
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = "doorway"
-login_manager.login_message_category = "doorway"
+with app.app_context():
+    db = SQLAlchemy(app)
+    migrate = Migrate(app, db)
+    bcrypt = Bcrypt(app)
+    login_manager = LoginManager(app)
+    login_manager.login_view = "doorway"
+    login_manager.login_message_category = "doorway"
 
 from app import routes

@@ -16,9 +16,9 @@ from app.forms import LoginForm, RegisterForm, SearchForm
 from app.models import FollowedSearch, User, Vehicle
 from flask_login import login_user, current_user, logout_user, login_required
 
-db.create_all()
-db.session.commit()
-
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 
 def add_favorites(fav):
     find_dup = Vehicle.query.filter_by(
